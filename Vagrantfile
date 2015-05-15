@@ -32,11 +32,14 @@ Vagrant.configure(2) do |config|
     vb.cpus = options['vm']['cpus']
   end
 
-
   config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = domains[0]
   config.vm.network "private_network", ip: options['network']['ip']
   config.vm.synced_folder "./", "/var/www", id: "vagrant-root", :nfs => false, owner: "www-data", group: "www-data"
+
+  # Port Forwardings
+  config.vm.network :forwarded_port, host: 80, guest: 80
+  config.vm.network :forwarded_port, host: 3306, guest: 3306
 
   config.vm.provision :hostmanager
   config.hostmanager.enabled            = true
