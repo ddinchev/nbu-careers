@@ -1,26 +1,22 @@
 {
-  "name": "trntv/yii2-starter-kit",
-  "description": "Yii2 Starter Kit Application Template",
+  "name": "ddinchev/nbu-careers",
+  "description": "NBU Careers",
   "keywords": [
     "yii2",
-    "framework",
-    "start",
-    "application template",
-    "yii2 advanced"
+    "nbu"
   ],
   "authors": [
     {
-      "name": "Eugene Terentev",
-      "email": "eugene@terentev.net",
-      "homepage": "http://terentev.net",
+      "name": "Dimitar Dinchev",
+      "email": "dinchev.dimitar@gmail.com",
       "role": "Developer"
     }
   ],
   "type": "project",
   "license": "BSD-3-Clause",
   "support": {
-    "issues": "https://github.com/trntv/yii2-starter-kit/issues?state=open",
-    "source": "https://github.com/trntv/yii2-starter-kit"
+    "issues": "https://github.com/ddinchev/nbu-careers/issues?state=open",
+    "source": "https://github.com/ddinchev/nbu-careers"
   },
   "require": {
     "php": ">=5.5.0",
