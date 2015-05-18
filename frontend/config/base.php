@@ -1,8 +1,11 @@
 <?php
+
 return [
     'id' => 'frontend',
-    'basePath'=>dirname(__DIR__),
+    'sourceLanguage' => 'en-US',
+    'language' => 'bg-BG',
+    'basePath' => dirname(__DIR__),
     'components' => [
-        'urlManager'=>require(__DIR__.'/_urlManager.php'),
+        'urlManager' => require(__DIR__ . '/_urlManager.php'),
     ],
 ];
