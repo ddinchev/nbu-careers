@@ -19,11 +19,16 @@ $config = [
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
-                'github' => [
-                    'class' => 'yii\authclient\clients\GitHub',
-                    'clientId' => getenv('GITHUB_CLIENT_ID'),
-                    'clientSecret' => getenv('GITHUB_CLIENT_SECRET')
-                ]
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => 'facebook_client_id',
+                    'clientSecret' => 'facebook_client_secret',
+                ],
+                'linkedin' => [
+                    'class' => 'yii\authclient\clients\LinkedIn',
+                    'clientId' => 'linkedin_client_id',
+                    'clientSecret' => 'linkedin_client_secret',
+                ],
             ]
         ],
         'errorHandler' => [
