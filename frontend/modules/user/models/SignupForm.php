@@ -2,13 +2,13 @@
 namespace frontend\modules\user\models;
 
 use common\models\User;
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 
 /**
- * Signup form
+ * Sign up form
  */
-class SignupForm extends Model
+class SignUpForm extends Model
 {
     public $username;
     public $email;
@@ -23,7 +23,7 @@ class SignupForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique',
-                'targetClass'=>'\common\models\User',
+                'targetClass' => '\common\models\User',
                 'message' => Yii::t('frontend', 'This username has already been taken.')
             ],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -32,7 +32,7 @@ class SignupForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'unique',
-                'targetClass'=> '\common\models\User',
+                'targetClass' => '\common\models\User',
                 'message' => Yii::t('frontend', 'This email address has already been taken.')
             ],
 
@@ -44,9 +44,9 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username'=>Yii::t('frontend', 'Username'),
-            'email'=>Yii::t('frontend', 'E-mail'),
-            'password'=>Yii::t('frontend', 'Password'),
+            'username' => Yii::t('frontend', 'Username'),
+            'email' => Yii::t('frontend', 'E-mail'),
+            'password' => Yii::t('frontend', 'Password'),
         ];
     }
 
@@ -55,7 +55,7 @@ class SignupForm extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function signup()
+    public function signUp()
     {
         if ($this->validate()) {
             $user = new User();
@@ -63,7 +63,7 @@ class SignupForm extends Model
             $user->email = $this->email;
             $user->setPassword($this->password);
             $user->save();
-            $user->afterSignup();
+            $user->afterUserSignUp();
             return $user;
         }
 

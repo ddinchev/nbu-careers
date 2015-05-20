@@ -33,6 +33,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 1;
 
     const ROLE_USER = 'user';
+    const ROLE_COMPANY = 'company';
     const ROLE_MANAGER = 'manager';
     const ROLE_ADMINISTRATOR = 'administrator';
 
@@ -258,7 +259,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Creates user profile and application event
      * @param array $profileData
      */
-    public function afterSignup(array $profileData = [])
+    public function afterUserSignUp(array $profileData = [])
     {
         Yii::$app->commandBus->handle(new AddToTimelineCommand([
             'category' => 'user',
@@ -277,6 +278,30 @@ class User extends ActiveRecord implements IdentityInterface
         // Default role
         $auth =  Yii::$app->authManager;
         $auth->assign($auth->getRole(User::ROLE_USER), $this->getId());
+    }
+
+    /**
+     * Creates user profile and application event
+     * @param array $companyData
+     */
+    public function afterCompanySignUp(array $companyData = [])
+    {
+        TimelineEvent::log(
+            'company',
+            'signup',
+            [
+                'publicIdentity' => $this->getPublicIdentity(),
+                'userId' => $this->getId(),
+                'created_at' => $this->created_at
+            ]
+        );
+        $company = new Company();
+        $company->load($companyData, '');
+        $this->link('company', $company);
+        $this->trigger(self::EVENT_AFTER_SIGNUP);
+        // Company role
+        $auth =  Yii::$app->authManager;
+        $auth->assign($auth->getRole(User::ROLE_COMPANY), $this->getId());
     }
 
     /**

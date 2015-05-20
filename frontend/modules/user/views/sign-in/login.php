@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?php echo Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-md-5">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?php echo $form->field($model, 'identity') ?>
                 <?php echo $form->field($model, 'password')->passwordInput() ?>
@@ -27,15 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php echo Html::submitButton(Yii::t('frontend', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
                 <div class="form-group">
-                    <?php echo Html::a(Yii::t('frontend', 'Need an account? Sign up.'), ['signup']) ?>
-                </div>
-                <h2><?php echo Yii::t('frontend', 'Log in with')  ?>:</h2>
-                <div class="form-group">
-                    <?php echo yii\authclient\widgets\AuthChoice::widget([
-                        'baseAuthUrl' => ['/user/sign-in/oauth']
+                    <?php echo Yii::t('frontend', 'Need an account? Sign up as a {company-sign-up-link} or {user-sign-up-link}.', [
+                        '{company-sign-up-link}' => Html::a(Yii::t('frontend', 'company'), ['company-sign-up']),
+                        '{user-sign-up-link}' => Html::a(Yii::t('frontend', 'user'), ['user-sign-up']),
                     ]) ?>
                 </div>
             <?php ActiveForm::end(); ?>
+        </div>
+        <div class="col-md-5">
+            <h2><?php echo Yii::t('frontend', 'Log in with') ?>:</h2>
+
+            <div class="form-group">
+                <?php echo yii\authclient\widgets\AuthChoice::widget([
+                    'baseAuthUrl' => ['/user/sign-in/oauth']
+                ]) ?>
+            </div>
         </div>
     </div>
 </div>

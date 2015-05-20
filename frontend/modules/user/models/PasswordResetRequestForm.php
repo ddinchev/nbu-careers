@@ -2,8 +2,8 @@
 namespace frontend\modules\user\models;
 
 use common\commands\command\SendEmailCommand;
-use Yii;
 use common\models\User;
+use Yii;
 use yii\base\Model;
 
 /**
@@ -62,7 +62,7 @@ class PasswordResetRequestForm extends Model
     public function attributeLabels()
     {
         return [
-            'email'=>Yii::t('frontend', 'E-mail')
+            'email' => Yii::t('frontend', 'E-mail')
         ];
     }
 }

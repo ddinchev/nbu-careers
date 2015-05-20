@@ -1,8 +1,8 @@
 <?php
 namespace frontend\modules\user\models;
 
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 
 /**
  * Account form
@@ -30,7 +30,7 @@ class AccountForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique',
-                'targetClass'=>'\common\models\User',
+                'targetClass' => '\common\models\User',
                 'message' => Yii::t('frontend', 'This username has already been taken.'),
                 'filter' => function ($query) {
                     $query->andWhere(['not', ['id' => Yii::$app->user->getId()]]);
@@ -46,9 +46,9 @@ class AccountForm extends Model
     public function attributeLabels()
     {
         return [
-            'username'=>Yii::t('frontend', 'Username'),
-            'password'=>Yii::t('frontend', 'Password'),
-            'password_confirm'=>Yii::t('frontend', 'Confirm Password')
+            'username' => Yii::t('frontend', 'Username'),
+            'password' => Yii::t('frontend', 'Password'),
+            'password_confirm' => Yii::t('frontend', 'Confirm Password')
         ];
     }
 
