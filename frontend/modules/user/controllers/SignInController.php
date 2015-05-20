@@ -172,8 +172,7 @@ class SignInController extends Controller
         $user = User::find()->where([
             'oauth_client' => $client->getName(),
             'oauth_client_user_id' => ArrayHelper::getValue($attributes, 'id')
-        ])
-            ->one();
+        ])->one();
         if (!$user) {
             $user = new User();
             $user->scenario = 'oauth_create';

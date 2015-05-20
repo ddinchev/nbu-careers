@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "company".
@@ -20,7 +21,7 @@ use Yii;
  *
  * @property Nbu-careersUser $user
  */
-class Company extends \yii\db\ActiveRecord
+class Company extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -36,8 +37,10 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'address'], 'required'],
-            [['user_id'], 'integer'],
+            [['user_id', 'name', 'address', 'website'], 'required'],
+            ['user_id', 'integer'],
+            ['user_id', 'exist', 'targetClass' => '\common\models\User'],
+            ['website', 'url', 'defaultScheme' => 'http'],
             [['description'], 'string'],
             [['latitude', 'longitude'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
@@ -69,7 +72,7 @@ class Company extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Nbu-careersUser::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**

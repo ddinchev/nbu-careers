@@ -37,9 +37,10 @@ use yii\bootstrap\NavBar;
             ['label' => Yii::t('frontend', 'Articles'), 'url' => ['/article/index']],
             [
                 'label' => Yii::t('frontend', 'Sign up'),
+                'visible' => Yii::$app->user->isGuest,
                 'items' => [
-                    ['label' => Yii::t('frontend', 'As a user'), 'url' => ['/user/sign-in/user-sign-up'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => Yii::t('frontend', 'As a company'), 'url' => ['/user/sign-in/company-sign-up'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => Yii::t('frontend', 'As a user'), 'url' => ['/user/sign-in/user-sign-up']],
+                    ['label' => Yii::t('frontend', 'As a company'), 'url' => ['/user/sign-in/company-sign-up']],
                 ]
             ],
             ['label' => Yii::t('frontend', 'Login'), 'url' => ['/user/sign-in/login'], 'visible' => Yii::$app->user->isGuest],

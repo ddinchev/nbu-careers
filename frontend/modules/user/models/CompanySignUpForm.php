@@ -21,6 +21,7 @@ class CompanySignUpForm extends SignUpForm
             [['name', 'website', 'address'], 'filter', 'filter' => 'trim'],
             [['name', 'website', 'address'], 'required'],
             ['name', 'string', 'min' => 4, 'max' => 255],
+            ['website', 'url', 'defaultScheme' => 'http'],
             ['name', 'unique',
                 'targetClass' => '\common\models\Company',
                 'message' => Yii::t('frontend', 'Company with this name already exists.')

@@ -4,6 +4,8 @@ namespace common\models;
 
 use trntv\filekit\behaviors\UploadBehavior;
 use Yii;
+use yii\db\ActiveRecord;
+
 
 /**
  * This is the model class for table "user_profile".
@@ -21,7 +23,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserProfile extends \yii\db\ActiveRecord
+class UserProfile extends ActiveRecord
 {
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
@@ -39,7 +41,6 @@ class UserProfile extends \yii\db\ActiveRecord
             ]
         ];
     }
-
 
     /**
      * @inheritdoc

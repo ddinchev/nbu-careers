@@ -25,7 +25,8 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property integer $logged_at
  * @property string $password write-only password
- * @property \common\models\UserProfile $userProfile
+ * @property UserProfile $userProfile
+ * @property Company $company
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -73,7 +74,7 @@ class User extends ActiveRecord implements IdentityInterface
         return ArrayHelper::merge(
             parent::scenarios(),
             [
-                'oauth_create'=>[
+                'oauth_create' => [
                     'oauth_client', 'oauth_client_user_id', 'email', 'username', '!status'
                 ]
             ]
@@ -113,7 +114,15 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getUserProfile()
     {
-        return $this->hasOne(UserProfile::className(), ['user_id'=>'id']);
+        return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompany()
+    {
+        return $this->hasOne(Company::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -168,7 +177,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $expire = Time::SECONDS_IN_A_DAY;
         $parts = explode('_', $token);
-        $timestamp = (int) end($parts);
+        $timestamp = (int)end($parts);
         if ($timestamp + $expire < time()) {
             // token expired
             return null;
@@ -276,7 +285,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->link('userProfile', $profile);
         $this->trigger(self::EVENT_AFTER_SIGNUP);
         // Default role
-        $auth =  Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
         $auth->assign($auth->getRole(User::ROLE_USER), $this->getId());
     }
 
@@ -300,7 +309,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->link('company', $company);
         $this->trigger(self::EVENT_AFTER_SIGNUP);
         // Company role
-        $auth =  Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
         $auth->assign($auth->getRole(User::ROLE_COMPANY), $this->getId());
     }
 
