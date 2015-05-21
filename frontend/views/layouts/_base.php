@@ -50,11 +50,17 @@ use yii\bootstrap\NavBar;
                 'items' => [
                     [
                         'label' => Yii::t('frontend', 'Account'),
-                        'url' => ['/user/default/index']
+                        'url' => ['/user/default/index'],
+                    ],
+                    [
+                        'label' => Yii::t('frontend', 'Company profile'),
+                        'url' => ['/user/default/company-profile'],
+                        'visible' => Yii::$app->user->can('company'),
                     ],
                     [
                         'label' => Yii::t('frontend', 'Profile'),
-                        'url' => ['/user/default/profile']
+                        'url' => ['/user/default/user-profile'],
+                        'visible' => Yii::$app->user->can('user'),
                     ],
                     [
                         'label' => Yii::t('frontend', 'Backend'),

@@ -46,8 +46,10 @@ class DefaultController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                    ['actions' => ['index'], 'allow' => true, 'roles' => ['@']],
+                    ['actions' => ['company-profile'], 'allow' => true, 'roles' => ['company']],
+                    ['actions' => ['user-profile'], 'allow' => true, 'roles' => ['user']],
 
-                    ['allow' => true, 'roles' => ['@']]
                 ]
             ]
         ];
@@ -81,7 +83,7 @@ class DefaultController extends Controller
     /**
      * @return string|\yii\web\Response
      */
-    public function actionProfile()
+    public function actionUserProfile()
     {
         /**
          * @var $model UserProfile
@@ -94,7 +96,7 @@ class DefaultController extends Controller
             ]);
             return $this->refresh();
         }
-        return $this->render('profile', ['model' => $model]);
+        return $this->render('user-profile', ['model' => $model]);
     }
 
     /**
