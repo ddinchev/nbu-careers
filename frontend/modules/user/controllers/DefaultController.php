@@ -3,6 +3,8 @@
 namespace frontend\modules\user\controllers;
 
 use common\base\MultiModel;
+use common\models\Company;
+use common\models\UserProfile;
 use frontend\modules\user\models\AccountForm;
 use Intervention\Image\ImageManagerStatic;
 use trntv\filekit\actions\DeleteAction;
@@ -44,10 +46,8 @@ class DefaultController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@']
-                    ]
+
+                    ['allow' => true, 'roles' => ['@']]
                 ]
             ]
         ];
@@ -70,11 +70,50 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('alert', [
-                'options' => ['class'=>'alert-success'],
+                'options' => ['class' => 'alert-success'],
                 'body' => Yii::t('frontend', 'Your account has been successfully saved')
             ]);
             return $this->refresh();
         }
-        return $this->render('index', ['model'=>$model]);
+        return $this->render('index', ['model' => $model]);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionProfile()
+    {
+        /**
+         * @var $model UserProfile
+         */
+        $model = Yii::$app->user->identity->userProfile;
+        if ($model->load($_POST) && $model->save()) {
+            Yii::$app->session->setFlash('alert', [
+                'options' => ['class' => 'alert-success'],
+                'body' => Yii::t('frontend', 'Your profile has been successfully saved')
+            ]);
+            return $this->refresh();
+        }
+        return $this->render('profile', ['model' => $model]);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionCompanyProfile()
+    {
+        /**
+         * @var $model Company
+         */
+        $model = Yii::$app->user->identity->company;
+        if ($model->load($_POST) && $model->save()) {
+            Yii::$app->session->setFlash('alert', [
+                'options' => ['class' => 'alert-success'],
+                'body' => Yii::t('frontend', 'Your profile has been successfully saved')
+            ]);
+            return $this->refresh();
+        }
+        return $this->render('company-profile', ['model' => $model]);
+
     }
 }

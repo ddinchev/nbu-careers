@@ -12,7 +12,6 @@ $this->title = Yii::t('frontend', 'User Settings')
 ?>
 
 <div class="user-profile-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <h2><?php echo Yii::t('frontend', 'Profile settings') ?></h2>

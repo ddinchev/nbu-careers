@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use trntv\filekit\behaviors\UploadBehavior;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -19,10 +20,24 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Nbu-careersUser $user
+ * @property User $user
  */
 class Company extends ActiveRecord
 {
+    public $logo;
+
+    public function behaviors()
+    {
+        return [
+            'picture' => [
+                'class' => UploadBehavior::className(),
+                'attribute' => 'logo',
+                'pathAttribute' => 'logo_path',
+                'baseUrlAttribute' => 'logo_base_url'
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -82,5 +97,14 @@ class Company extends ActiveRecord
     public static function find()
     {
         return new CompanyQuery(get_called_class());
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getLogo() {
+        return $this->logo_path
+            ? Yii::getAlias($this->logo_base_url . '/' . $this->logo_path)
+            : false;
     }
 }

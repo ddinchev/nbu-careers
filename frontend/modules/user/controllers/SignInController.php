@@ -47,9 +47,8 @@ class SignInController extends Controller
                         'actions' => ['user-sign-up', 'company-sign-up', 'login', 'request-password-reset', 'reset-password', 'oauth'],
                         'allow' => false,
                         'roles' => ['@'],
-                        // TODO: Probably the company and user profile pages are different, handle it
                         'denyCallback' => function () {
-                            return Yii::$app->controller->redirect(['/user/default/profile']);
+                            return Yii::$app->controller->redirect(['/user/default']);
                         }
                     ],
                     [
