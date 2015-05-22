@@ -1,5 +1,8 @@
 <?php
 
+use common\models\Job;
+use common\models\JobCategory;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -9,18 +12,32 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="job-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'company_id')->textInput() ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => 60]) ?>
 
-    <?= $form->field($model, 'job_category_id')->textInput() ?>
+    <?= $form->field($model, 'ref_no')->textInput(['maxlength' => 30]) ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?php
+    echo $form->field($model, 'job_category_id')->dropDownList(
+        ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name'),
+        ['prompt' => 'Изберете']
+    );
+    ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?php
+    echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentType, [
+        'prompt' => 'Изберете'
+    ]);
+    ?>
 
-    <?= $form->field($model, 'employment_form')->textInput(['maxlength' => true]) ?>
+    <?php
+    echo $form->field($model, 'job_type')->dropDownList(Job::$jobType, [
+        'prompt' => 'Изберете'
+    ]);
+    ?>
+
+    <?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 

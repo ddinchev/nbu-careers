@@ -18,7 +18,7 @@ class JobSearch extends Job
     public function rules()
     {
         return [
-            [['id', 'company_id', 'job_category_id', 'status'], 'integer'],
+            [['id', 'company_id', 'job_category_id', 'job_type', 'employment_type', 'status'], 'integer'],
             [['title', 'description', 'employment_form', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -59,14 +59,15 @@ class JobSearch extends Job
             'id' => $this->id,
             'company_id' => $this->company_id,
             'job_category_id' => $this->job_category_id,
+            'job_type' => $this->job_type,
+            'employment_type' => $this->employment_type,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'employment_form', $this->employment_form]);
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }
