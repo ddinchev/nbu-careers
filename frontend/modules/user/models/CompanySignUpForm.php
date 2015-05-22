@@ -4,6 +4,7 @@ namespace frontend\modules\user\models;
 
 use common\models\User;
 use Yii;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 
 class CompanySignUpForm extends SignUpForm
@@ -54,13 +55,20 @@ class CompanySignUpForm extends SignUpForm
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);
-            $user->save();
-            $user->afterCompanySignUp([
-                'name' => $this->name,
-                'website' => $this->website,
-                'address' => $this->address
-            ]);
-            return $user;
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $user->save();
+                $user->afterCompanySignUp([
+                    'name' => $this->name,
+                    'website' => $this->website,
+                    'address' => $this->address
+                ]);
+                $transaction->commit();
+                return $user;
+            } catch(Exception $e) {
+                $transaction->rollBack();
+            }
         }
 
         return null;

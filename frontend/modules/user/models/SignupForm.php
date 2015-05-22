@@ -68,10 +68,10 @@ class SignUpForm extends Model
                 $user->save();
                 $user->afterUserSignUp();
                 $transaction->commit();
+                return $user;
             } catch(Exception $e) {
                 $transaction->rollBack();
             }
-            return $user;
         }
 
         return null;
