@@ -35,15 +35,23 @@ use yii\bootstrap\NavBar;
         'items' => [
             ['label' => Yii::t('frontend', 'Home'), 'url' => ['/site/index']],
             ['label' => Yii::t('frontend', 'Articles'), 'url' => ['/article/index']],
+            // За студенти
             [
-                'label' => Yii::t('frontend', 'Sign up'),
-                'visible' => Yii::$app->user->isGuest,
+                'label' => 'За студенти',
                 'items' => [
-                    ['label' => Yii::t('frontend', 'As a user'), 'url' => ['/user/sign-in/user-sign-up']],
-                    ['label' => Yii::t('frontend', 'As a company'), 'url' => ['/user/sign-in/company-sign-up']],
+                    ['label' => 'Вход', 'url' => ['/user/sign-in/login']],
+                    ['label' => 'Регистрация за студенти', 'url' => ['/user/sign-in/user-sign-up']],
                 ]
             ],
-            ['label' => Yii::t('frontend', 'Login'), 'url' => ['/user/sign-in/login'], 'visible' => Yii::$app->user->isGuest],
+            // За работодатели
+            [
+                'label' => 'Работодатели',
+                'visible' => Yii::$app->user->isGuest,
+                'items' => [
+                    ['label' => 'Вход', 'url' => ['/user/sign-in/login']],
+                    ['label' => 'Регистрация за работодатели', 'url' => ['/user/sign-in/company-sign-up']],
+                ]
+            ],
             [
                 'label' => Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->getPublicIdentity(),
                 'visible' => !Yii::$app->user->isGuest,
