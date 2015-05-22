@@ -53,8 +53,13 @@ use yii\bootstrap\NavBar;
                         'url' => ['/user/default/index'],
                     ],
                     [
-                        'label' => Yii::t('frontend', 'Company profile'),
+                        'label' => "Фирмен профил",
                         'url' => ['/user/default/company-profile'],
+                        'visible' => Yii::$app->user->can('company'),
+                    ],
+                    [
+                        'label' => "Добави обява",
+                        'url' => ['/company-job/create'],
                         'visible' => Yii::$app->user->can('company'),
                     ],
                     [

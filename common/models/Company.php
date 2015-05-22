@@ -4,6 +4,7 @@ namespace common\models;
 
 use trntv\filekit\behaviors\UploadBehavior;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -29,7 +30,8 @@ class Company extends ActiveRecord
     public function behaviors()
     {
         return [
-            'picture' => [
+            TimestampBehavior::className(),
+            'logo' => [
                 'class' => UploadBehavior::className(),
                 'attribute' => 'logo',
                 'pathAttribute' => 'logo_path',

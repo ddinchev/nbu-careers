@@ -3,17 +3,29 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "job_category".
  *
  * @property integer $id
- * @property string $title
+ * @property string $name
  * @property string $created_at
  * @property string $updated_at
  */
-class JobCategory extends \yii\db\ActiveRecord
+class JobCategory extends ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className()
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -28,9 +40,9 @@ class JobCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['title'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255]
         ];
     }
 
@@ -41,9 +53,16 @@ class JobCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
+            'name' => Yii::t('app', 'Name'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @return JobCategory[]
+     */
+    public static function getDropdownCategories() {
+        return self::find()->orderBy(['name' => 'asc'])->all();
     }
 }
