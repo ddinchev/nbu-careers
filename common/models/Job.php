@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "job".
@@ -39,7 +40,6 @@ class Job extends ActiveRecord
     const EMPLOYMENT_TYPE_PART_TIME = 1;
     const EMPLOYMENT_TYPE_FULL_TIME = 2;
 
-
     public static $employmentType = [
         self::EMPLOYMENT_TYPE_FULL_TIME => 'Пълен работен ден',
         self::EMPLOYMENT_TYPE_PART_TIME => 'Половин работен ден'
@@ -63,7 +63,10 @@ class Job extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className()
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
+            ],
         ];
     }
 

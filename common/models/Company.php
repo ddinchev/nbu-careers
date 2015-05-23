@@ -6,6 +6,7 @@ use trntv\filekit\behaviors\UploadBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "company".
@@ -30,7 +31,10 @@ class Company extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
+            ],
             'logo' => [
                 'class' => UploadBehavior::className(),
                 'attribute' => 'logo',
