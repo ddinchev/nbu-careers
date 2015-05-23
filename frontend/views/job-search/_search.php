@@ -1,5 +1,8 @@
 <?php
 
+use common\models\Job;
+use common\models\JobCategory;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -9,35 +12,42 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="job-search">
+    <?php $form = ActiveForm::begin(['action' => ['index'], 'method' => 'get', ]); ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'company_id') ?>
-
-    <?= $form->field($model, 'job_category_id') ?>
-
-    <?= $form->field($model, 'title') ?>
-
-    <?= $form->field($model, 'description') ?>
-
-    <?php // echo $form->field($model, 'employment_form') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('frontend', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('frontend', 'Reset'), ['class' => 'btn btn-default']) ?>
-    </div>
-
+    <fieldset>
+        <legend><?= Html::encode($this->title) ?></legend>
+        <div class="row">
+            <div class="col-md-3">
+                <?= $form->field($model, 'keywords') ?>
+            </div>
+            <div class="col-md-2">
+                <?php
+                echo $form->field($model, 'job_category_id')->dropDownList(
+                    ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name'),
+                    ['prompt' => 'Изберете']
+                );
+                ?>
+            </div>
+            <div class="col-md-2">
+                <?php
+                echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentType, [
+                    'prompt' => 'Изберете'
+                ]);
+                ?>
+            </div>
+            <div class="col-md-2">
+                <?php
+                echo $form->field($model, 'job_type')->dropDownList(Job::$jobType, [
+                    'prompt' => 'Изберете'
+                ]);
+                ?>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('frontend', 'Search'), ['class' => 'btn btn-primary']) ?>
+                </div>
+            </div>
+        </div>
+    </fieldset>
     <?php ActiveForm::end(); ?>
-
 </div>

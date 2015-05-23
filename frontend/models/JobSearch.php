@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\JobCategory;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -12,14 +13,21 @@ use common\models\Job;
  */
 class JobSearch extends Job
 {
+    public $score;
+
+    public $keywords;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'company_id', 'job_category_id', 'job_type', 'employment_type', 'status'], 'integer'],
-            [['title', 'description', 'employment_form', 'created_at', 'updated_at'], 'safe'],
+            [['job_category_id', 'job_type', 'employment_type'], 'integer'],
+            ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
+            ['employment_type', 'in', 'range' => array_keys(self::$employmentType)],
+            ['job_type', 'in', 'range' => array_keys(self::$jobType)],
+            [['keywords'], 'safe'],
         ];
     }
 
@@ -41,7 +49,7 @@ class JobSearch extends Job
      */
     public function search($params)
     {
-        $query = Job::find();
+        $query = JobSearch::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,18 +64,16 @@ class JobSearch extends Job
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'company_id' => $this->company_id,
             'job_category_id' => $this->job_category_id,
             'job_type' => $this->job_type,
             'employment_type' => $this->employment_type,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        if ($this->keywords) {
+            $query->andWhere('MATCH (title, description) AGAINST (:keywords)');
+            $query->addSelect(['*', 'MATCH (title, description) AGAINST (:keywords) AS score']);
+            $query->addParams([':keywords' => $this->keywords]);
+        }
 
         return $dataProvider;
     }

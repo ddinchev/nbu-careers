@@ -1,42 +1,55 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Job;
+use frontend\models\JobSearch;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\JobSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('frontend', 'Jobs');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = sprintf('Търсете сред %d предложения подходящи за студенти', $dataProvider->count);
 ?>
 <div class="job-index">
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
 
-    <p>
-        <?= Html::a(Yii::t('frontend', 'Create Job'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'showHeader' => false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'company_id',
-            'job_category_id',
+            [
+                'attribute' => 'company_id',
+                'value' => function (JobSearch $data) {
+                    return $data->company->name;
+                }
+            ],
+            [
+                'attribute' => 'job_category_id',
+                'value' => function (JobSearch $data) {
+                    return $data->jobCategory->name;
+                }
+            ],
+            [
+                'attribute' => 'employment_type',
+                'value' => function (JobSearch $data) {
+                    return Job::$employmentType[$data->employment_type];
+                }
+            ],
+            [
+                'attribute' => 'job_type',
+                'value' => function (JobSearch $data) {
+                    return Job::$jobType[$data->job_type];
+                }
+            ],
             'title',
             'description:ntext',
-            // 'employment_form',
             // 'status',
-            // 'created_at',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            // 'created_at:datetime',
         ],
-    ]); ?>
+    ]);
+
+    ?>
 
 </div>
