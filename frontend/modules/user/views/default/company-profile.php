@@ -8,11 +8,11 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\Company */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = Yii::t('frontend', 'Profile')
+$this->title = 'Фирмен Профил';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="company-profile-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="row">
@@ -37,5 +37,4 @@ $this->title = Yii::t('frontend', 'Profile')
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>

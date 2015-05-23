@@ -38,6 +38,7 @@ use yii\bootstrap\NavBar;
             // За студенти
             [
                 'label' => 'За студенти',
+                'visible' => Yii::$app->user->isGuest,
                 'items' => [
                     ['label' => 'Вход', 'url' => ['/user/sign-in/login']],
                     ['label' => 'Регистрация за студенти', 'url' => ['/user/sign-in/user-sign-up']],
@@ -52,6 +53,8 @@ use yii\bootstrap\NavBar;
                     ['label' => 'Регистрация за работодатели', 'url' => ['/user/sign-in/company-sign-up']],
                 ]
             ],
+            ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
+            ['label' => Yii::t('frontend', 'About'), 'url' => ['/page/view', 'slug' => 'about']],
             [
                 'label' => Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->getPublicIdentity(),
                 'visible' => !Yii::$app->user->isGuest,
@@ -63,6 +66,11 @@ use yii\bootstrap\NavBar;
                     [
                         'label' => "Фирмен профил",
                         'url' => ['/user/default/company-profile'],
+                        'visible' => Yii::$app->user->can('company'),
+                    ],
+                    [
+                        'label' => "Мои обяви",
+                        'url' => ['/company-job/index', 'id' => Yii::$app->user->id],
                         'visible' => Yii::$app->user->can('company'),
                     ],
                     [
@@ -87,8 +95,6 @@ use yii\bootstrap\NavBar;
                     ]
                 ]
             ],
-            ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
-            ['label' => Yii::t('frontend', 'About'), 'url' => ['/page/view', 'slug' => 'about']],
         ]
     ]);
     NavBar::end();

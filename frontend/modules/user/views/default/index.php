@@ -8,13 +8,14 @@ use yii\widgets\ActiveForm;
 /* @var $model common\base\MultiModel */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = Yii::t('frontend', 'User Settings')
+$this->title = Yii::t('frontend', 'Profile Settings');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="user-profile-form">
     <?php $form = ActiveForm::begin(); ?>
 
-    <h2><?php echo Yii::t('frontend', 'Profile settings') ?></h2>
+    <h2><?php echo $this->title ?></h2>
 
     <?php echo $form->field($model->getModel('profile'), 'picture')->widget(
         Upload::classname(),

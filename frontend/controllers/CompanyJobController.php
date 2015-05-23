@@ -27,13 +27,14 @@ class CompanyJobController extends Controller
     }
 
     /**
-     * Lists all Job models.
+     * Lists all Job models for given company (identified by $id)
+     * @param int $id id of the company
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Job::find(),
+            'query' => Job::find()->where(['company_id' => $id]),
         ]);
 
         return $this->render('index', [
