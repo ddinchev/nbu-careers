@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\StringHelper;
 
 /**
  * This is the model class for table "job".
@@ -93,6 +94,9 @@ class Job extends ActiveRecord
             ['title', 'string', 'max' => 60],
             ['ref_no', 'string', 'max' => 20],
             [['description'], 'string', 'min' => 160],
+            ['status', 'in', 'range' => array_keys(Job::$statuses), 'when' => function() {
+                return Yii::$app->user->can('manager');
+            }]
         ];
     }
 
@@ -151,5 +155,10 @@ class Job extends ActiveRecord
     public static function find()
     {
         return new JobQuery(get_called_class());
+    }
+
+    public function getShortDescription($words = 50)
+    {
+        return trim(preg_replace('/\s\s+/', ' ', StringHelper::truncateWords($this->description, $words)));
     }
 }

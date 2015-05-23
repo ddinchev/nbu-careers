@@ -81,7 +81,9 @@ class Company extends ActiveRecord
             [['name', 'address', 'logo_path', 'logo_base_url'], 'string', 'max' => 255],
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
-            ['status', 'in', 'range' => array_keys(Company::$statuses)]
+            ['status', 'in', 'range' => array_keys(Company::$statuses), 'when' => function() {
+                return Yii::$app->user->can('manager');
+            }]
         ];
     }
 
