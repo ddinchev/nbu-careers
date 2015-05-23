@@ -1,71 +1,67 @@
 <?php
+
+use Carbon\Carbon;
+use common\models\Job;
+use frontend\models\JobSearch;
+use yii\grid\GridView;
+use yii\helpers\StringHelper;
+
 /* @var $this yii\web\View */
-$this->title = Yii::$app->name;
+/* @var $searchModel frontend\models\JobSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = sprintf('Търсете сред %d предложения подходящи за студенти', $dataProvider->count);
 ?>
-<div class="site-index">
-    <?php /*
-    <?php echo \common\components\widgets\DbCarousel::widget([
-        'key' => 'index'
-    ]) ?>
+<div class="job-index">
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <?php
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <?php echo common\components\widgets\DbMenu::widget([
-            'key' => 'frontend-index',
-            'options' => [
-                'tag' => 'p'
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        // 'showHeader' => false,
+        'columns' => [
+            [
+                'attribute' => 'company_id',
+                'value' => function (JobSearch $data) {
+                    return $data->company->name;
+                }
+            ],
+            [
+                'attribute' => 'job_category_id',
+                'value' => function (JobSearch $data) {
+                    return $data->jobCategory->name;
+                }
+            ],
+            [
+                'attribute' => 'employment_type',
+                'value' => function (JobSearch $data) {
+                    return Job::$employmentType[$data->employment_type];
+                }
+            ],
+            [
+                'attribute' => 'job_type',
+                'value' => function (JobSearch $data) {
+                    return Job::$jobType[$data->job_type];
+                }
+            ],
+            'title',
+            [
+                'attribute' => 'description',
+                'format' => 'ntext',
+                'value' => function (JobSearch $data) {
+                    return trim(preg_replace('/\s\s+/', ' ', StringHelper::truncateWords($data->description, 50)));
+                }
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => function (JobSearch $data) {
+                    return Carbon::createFromFormat('Y-m-d H:i:s', $data->updated_at)->diffForHumans();
+                }
             ]
-        ]) ?>
-    </div>
+        ],
+    ]);
 
-    <div class="body-content">
+    ?>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    */ ?>
 </div>

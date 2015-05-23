@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\JobSearch;
 use Yii;
 use frontend\models\ContactForm;
 use yii\web\Controller;
@@ -30,9 +31,19 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * Lists all Job models.
+     * @return mixed
+     */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new JobSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionContact()
