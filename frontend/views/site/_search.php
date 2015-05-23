@@ -13,14 +13,13 @@ use yii\widgets\ActiveForm;
 
 <div class="job-search">
     <?php $form = ActiveForm::begin(['action' => ['index'], 'method' => 'get', ]); ?>
-
     <fieldset>
         <legend><?= Html::encode($this->title) ?></legend>
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row row-centered">
+            <div class="col-md-3 col-centered">
                 <?= $form->field($model, 'keywords') ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-centered">
                 <?php
                 echo $form->field($model, 'job_category_id')->dropDownList(
                     ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name'),
@@ -28,21 +27,21 @@ use yii\widgets\ActiveForm;
                 );
                 ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-centered">
                 <?php
                 echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes, [
                     'prompt' => 'Изберете'
                 ]);
                 ?>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-centered">
                 <?php
                 echo $form->field($model, 'job_type')->dropDownList(Job::$jobTypes, [
                     'prompt' => 'Изберете'
                 ]);
                 ?>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1 col-centered">
                 <div class="form-group">
                     <?= Html::submitButton(Yii::t('frontend', 'Search'), ['class' => 'btn btn-primary']) ?>
                 </div>

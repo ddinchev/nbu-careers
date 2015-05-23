@@ -50,11 +50,11 @@ $this->title = sprintf('Търсете сред %d предложения под
                 'attribute' => 'description',
                 'format' => 'ntext',
                 'value' => function (JobSearch $data) {
-                    return trim(preg_replace('/\s\s+/', ' ', StringHelper::truncateWords($data->description, 50)));
+                    return $data->getShortDescription();
                 }
             ],
             [
-                'attribute' => 'created_at',
+                'attribute' => 'updated_at',
                 'value' => function (JobSearch $data) {
                     return Carbon::createFromFormat('Y-m-d H:i:s', $data->updated_at)->diffForHumans();
                 }
