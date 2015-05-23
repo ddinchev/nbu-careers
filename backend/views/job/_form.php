@@ -18,28 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ref_no')->textInput(['maxlength' => 30]) ?>
 
-    <?php
-    echo $form->field($model, 'job_category_id')->dropDownList(
-        ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name'),
-        ['prompt' => 'Изберете']
-    );
-    ?>
+    <?= $form->field($model, 'job_category_id')->dropDownList(ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name')) ?>
 
-    <?php
-    echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes, [
-        'prompt' => 'Изберете'
-    ]);
-    ?>
+    <?= $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes) ?>
 
-    <?php
-    echo $form->field($model, 'job_type')->dropDownList(Job::$jobTypes, [
-        'prompt' => 'Изберете'
-    ]);
-    ?>
+    <?= $form->field($model, 'job_type')->dropDownList(Job::$jobTypes) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList(Job::$statuses) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
