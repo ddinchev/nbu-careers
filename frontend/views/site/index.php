@@ -10,7 +10,7 @@ use yii\helpers\StringHelper;
 /* @var $searchModel frontend\models\JobSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = sprintf('Търсете сред %d предложения подходящи за студенти', $dataProvider->count);
+$this->title = sprintf('Търсете сред %d предложения подходящи за студенти', Job::find()->searchable()->count());
 ?>
 <div class="job-index">
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>

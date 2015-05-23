@@ -49,7 +49,7 @@ class JobSearch extends Job
      */
     public function search($params)
     {
-        $query = JobSearch::find();
+        $query = JobSearch::find()->searchable();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -2,12 +2,14 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[Job]].
  *
  * @see Job
  */
-class JobQuery extends \yii\db\ActiveQuery
+class JobQuery extends ActiveQuery
 {
     /*public function active()
     {
@@ -31,5 +33,10 @@ class JobQuery extends \yii\db\ActiveQuery
     public function one($db = null)
     {
         return parent::one($db);
+    }
+
+    public function searchable() {
+        $this->andWhere(['status' => Job::STATUS_APPROVED]);
+        return $this;
     }
 }
