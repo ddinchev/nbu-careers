@@ -14,11 +14,15 @@ use yii\db\Expression;
  * @property integer $user_id
  * @property string $name
  * @property string $address
+ * @property string $website
  * @property string $description
  * @property string $latitude
  * @property string $longitude
+ * @property string $logo_name
+ * @property string $logo_size
  * @property string $logo_path
  * @property string $logo_base_url
+ * @property integer $status
  * @property string $created_at
  * @property string $updated_at
  *
@@ -26,6 +30,16 @@ use yii\db\Expression;
  */
 class Company extends ActiveRecord
 {
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
+    const STATUS_REJECTED = 2;
+
+    public static $statuses = [
+        self::STATUS_PENDING => 'Изчакваща',
+        self::STATUS_APPROVED => 'Одобрена',
+        self::STATUS_REJECTED => 'Отхвърлена'
+    ];
+
     public $logo;
 
     public function behaviors()
@@ -38,6 +52,8 @@ class Company extends ActiveRecord
             'logo' => [
                 'class' => UploadBehavior::className(),
                 'attribute' => 'logo',
+                'nameAttribute' => 'logo_name',
+                'sizeAttribute' => 'logo_size',
                 'pathAttribute' => 'logo_path',
                 'baseUrlAttribute' => 'logo_base_url'
             ]
@@ -60,12 +76,12 @@ class Company extends ActiveRecord
         return [
             [['user_id', 'name', 'address', 'website'], 'required'],
             ['user_id', 'integer'],
-            ['user_id', 'exist', 'targetClass' => '\common\models\User'],
+            ['user_id', 'exist', 'targetClass' => '\common\models\User', 'targetAttribute' => 'id'],
             ['website', 'url', 'defaultScheme' => 'http'],
+            [['name', 'address', 'logo_path', 'logo_base_url'], 'string', 'max' => 255],
             [['description'], 'string'],
-            [['latitude', 'longitude'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
-            [['name', 'address', 'logo_path', 'logo_base_url'], 'string', 'max' => 255]
+            ['status', 'in', 'range' => array_keys(Company::$statuses)]
         ];
     }
 
@@ -83,6 +99,7 @@ class Company extends ActiveRecord
             'longitude' => Yii::t('app', 'Longitude'),
             'logo_path' => Yii::t('app', 'Logo Path'),
             'logo_base_url' => Yii::t('app', 'Logo Base Url'),
+            'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];

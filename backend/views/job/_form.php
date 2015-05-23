@@ -26,13 +26,13 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentType, [
+    echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes, [
         'prompt' => 'Изберете'
     ]);
     ?>
 
     <?php
-    echo $form->field($model, 'job_type')->dropDownList(Job::$jobType, [
+    echo $form->field($model, 'job_type')->dropDownList(Job::$jobTypes, [
         'prompt' => 'Изберете'
     ]);
     ?>

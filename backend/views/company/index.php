@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Company;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -17,14 +18,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            // 'user_id',
             'name',
+            'user.email',
             'address',
+            'website',
+            [
+                'attribute' => 'logo',
+                'format' => 'html',
+                'value' => function (Company $data) {
+                    return $data->logo_path ? Html::img($data->getLogo()) : null;
+                }
+            ],
             'description:ntext',
-            // 'latitude',
-            // 'longitude',
-            // 'logo_path',
-            // 'logo_base_url:url',
+            [
+                'attribute' => 'status',
+                'value' => function (Company $data) {
+                    return Company::$statuses[$data->status];
+                }
+            ],
             'created_at',
             'updated_at',
             ['class' => 'yii\grid\ActionColumn'],

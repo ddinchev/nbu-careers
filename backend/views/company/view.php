@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Company;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -25,20 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?php
+
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'user_id',
             'name',
             'address',
+            'website',
+            'user.email',
             'description:ntext',
-            'latitude',
-            'longitude',
-            'logo_path',
-            'logo_base_url:url',
+            [
+                'attribute' => 'logo',
+                'format' => 'html',
+                'value' => $model->getLogo() ?: null
+            ],
+            [
+                'attribute' => 'status',
+                'value' => Company::$statuses[$model->status]
+            ],
             'created_at',
             'updated_at',
         ],
-    ]) ?>
+    ])
+
+    ?>
 
 </div>

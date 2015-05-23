@@ -36,13 +36,13 @@ $this->title = sprintf('Търсете сред %d предложения под
             [
                 'attribute' => 'employment_type',
                 'value' => function (JobSearch $data) {
-                    return Job::$employmentType[$data->employment_type];
+                    return Job::$employmentTypes[$data->employment_type];
                 }
             ],
             [
                 'attribute' => 'job_type',
                 'value' => function (JobSearch $data) {
-                    return Job::$jobType[$data->job_type];
+                    return Job::$jobTypes[$data->job_type];
                 }
             ],
             'title',

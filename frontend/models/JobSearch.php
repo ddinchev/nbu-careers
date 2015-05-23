@@ -25,8 +25,8 @@ class JobSearch extends Job
         return [
             [['job_category_id', 'job_type', 'employment_type'], 'integer'],
             ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
-            ['employment_type', 'in', 'range' => array_keys(self::$employmentType)],
-            ['job_type', 'in', 'range' => array_keys(self::$jobType)],
+            ['employment_type', 'in', 'range' => array_keys(self::$employmentTypes)],
+            ['job_type', 'in', 'range' => array_keys(self::$jobTypes)],
             [['keywords'], 'safe'],
         ];
     }

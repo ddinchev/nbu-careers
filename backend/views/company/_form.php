@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Company;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,17 +13,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList(Company::$statuses) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'website')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'latitude')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'longitude')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'logo_path')->textInput(['maxlength' => true]) ?>
 

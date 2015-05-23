@@ -31,7 +31,7 @@ class Job extends ActiveRecord
     const STATUS_APPROVED = 1;
     const STATUS_REJECTED = 2;
 
-    public static $status = [
+    public static $statuses = [
         self::STATUS_PENDING => 'Изчакваща',
         self::STATUS_APPROVED => 'Одобрена',
         self::STATUS_REJECTED => 'Отхвърлена'
@@ -40,7 +40,7 @@ class Job extends ActiveRecord
     const EMPLOYMENT_TYPE_PART_TIME = 1;
     const EMPLOYMENT_TYPE_FULL_TIME = 2;
 
-    public static $employmentType = [
+    public static $employmentTypes = [
         self::EMPLOYMENT_TYPE_FULL_TIME => 'Пълен работен ден',
         self::EMPLOYMENT_TYPE_PART_TIME => 'Половин работен ден'
     ];
@@ -50,7 +50,7 @@ class Job extends ActiveRecord
     const JOB_TYPE_REGULAR = 3;
     const JOB_TYPE_PROJECT = 4;
 
-    public static $jobType = [
+    public static $jobTypes = [
         self::JOB_TYPE_INTERNSHIP => 'Стаж',
         self::JOB_TYPE_SEASONAL => 'Сезонна',
         self::JOB_TYPE_REGULAR => 'Постоянна',
@@ -88,8 +88,8 @@ class Job extends ActiveRecord
             [['company_id', 'job_category_id', 'employment_type', 'job_type'], 'integer'],
             ['company_id', 'exist', 'targetClass' => Company::className(), 'targetAttribute' => 'user_id'],
             ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
-            ['employment_type', 'in', 'range' => array_keys(self::$employmentType)],
-            ['job_type', 'in', 'range' => array_keys(self::$jobType)],
+            ['employment_type', 'in', 'range' => array_keys(self::$employmentTypes)],
+            ['job_type', 'in', 'range' => array_keys(self::$jobTypes)],
             ['title', 'string', 'max' => 60],
             ['ref_no', 'string', 'max' => 20],
             [['description'], 'string', 'min' => 160],
