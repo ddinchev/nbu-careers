@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Company;
 use common\models\Job;
 use common\models\JobCategory;
 use yii\helpers\ArrayHelper;
@@ -13,6 +14,8 @@ use yii\widgets\ActiveForm;
 
 <div class="job-form">
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'company_id')->dropDownList(ArrayHelper::map(Company::find()->all(), 'user_id', 'name')) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 60]) ?>
 

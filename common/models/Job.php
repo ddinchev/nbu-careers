@@ -161,4 +161,25 @@ class Job extends ActiveRecord
     {
         return trim(preg_replace('/\s\s+/', ' ', StringHelper::truncateWords($this->description, $words)));
     }
+
+    /**
+     * return string
+     */
+    public function getStatus()
+    {
+        return self::$statuses[$this->status];
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getJobType()
+    {
+        return $this->job_type ? self::$jobTypes[$this->job_type] : null;
+    }
+
+    public function getEmploymentType()
+    {
+        return $this->employment_type ? self::$employmentTypes[$this->employment_type] : null;
+    }
 }

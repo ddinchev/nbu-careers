@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Job;
-use yii\data\ActiveDataProvider;
+use common\models\JobSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,11 +32,11 @@ class JobController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Job::find(),
-        ]);
+        $searchModel = new JobSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
