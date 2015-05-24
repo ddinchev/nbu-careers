@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
+/* @var $searchModel common\models\CompanySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('backend', 'Companies');
@@ -17,27 +18,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             'name',
-            'user.email',
             'address',
             'website',
+            'description:ntext',
+            [
+                'attribute' => 'status',
+                'filter' => Company::$statuses,
+                'value' => function (Company $data) {
+                    return $data->getStatus();
+                }
+            ],
+            'user.email',
             [
                 'attribute' => 'logo',
                 'format' => 'html',
                 'value' => function (Company $data) {
-                    return $data->logo_path ? Html::img($data->getLogo()) : null;
+                    return $data->logo_path ? Html::img($data->getLogo(), ['style' => 'width: 100px']) : null;
                 }
             ],
-            'description:ntext',
             [
-                'attribute' => 'status',
-                'value' => function (Company $data) {
-                    return Company::$statuses[$data->status];
-                }
+                'attribute' => 'created_at',
+                'filter' => false,
             ],
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'updated_at',
+                'filter' => false,
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

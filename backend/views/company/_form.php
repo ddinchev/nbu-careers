@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Company;
+use trntv\filekit\widget\Upload;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -22,10 +23,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'website')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'logo_path')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'logo_base_url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 

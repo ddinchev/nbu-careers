@@ -81,6 +81,7 @@ class Company extends ActiveRecord
             [['name', 'address', 'logo_path', 'logo_base_url'], 'string', 'max' => 255],
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
+            ['logo', 'safe'],
             ['status', 'in', 'range' => array_keys(Company::$statuses), 'when' => function() {
                 return Yii::$app->user->can('manager');
             }]
@@ -104,6 +105,13 @@ class Company extends ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+        ];
+    }
+
+    public function attributeHints()
+    {
+        return [
+            'logo' => Yii::t('app', 'For best results upload a 2:1 logo image. It will be cropped otherwise.'),
         ];
     }
 
@@ -131,5 +139,13 @@ class Company extends ActiveRecord
         return $this->logo_path
             ? Yii::getAlias($this->logo_base_url . '/' . $this->logo_path)
             : false;
+    }
+
+    /**
+     * return string
+     */
+    public function getStatus()
+    {
+        return self::$statuses[$this->status];
     }
 }
