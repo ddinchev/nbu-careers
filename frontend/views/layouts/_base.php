@@ -21,20 +21,25 @@ use yii\bootstrap\NavBar;
 <body>
 
 <?php $this->beginBody() ?>
-<div class="wrap">
+<div class="wrap container">
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-default navbar-fixed-top',
         ],
+        /* 'innerContainerOptions' => [
+            'class' => 'container-fluid'
+        ]*/
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('frontend', 'Home'), 'url' => ['/site/index']],
             ['label' => Yii::t('frontend', 'Articles'), 'url' => ['/article/index']],
+            ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
+            ['label' => Yii::t('frontend', 'About'), 'url' => ['/page/view', 'slug' => 'about']],
             // За студенти
             [
                 'label' => 'За студенти',
@@ -53,8 +58,6 @@ use yii\bootstrap\NavBar;
                     ['label' => 'Регистрация за работодатели', 'url' => ['/user/sign-in/company-sign-up']],
                 ]
             ],
-            ['label' => Yii::t('frontend', 'Contact'), 'url' => ['/site/contact']],
-            ['label' => Yii::t('frontend', 'About'), 'url' => ['/page/view', 'slug' => 'about']],
             [
                 'label' => Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->getPublicIdentity(),
                 'visible' => !Yii::$app->user->isGuest,
@@ -70,12 +73,12 @@ use yii\bootstrap\NavBar;
                     ],
                     [
                         'label' => "Мои обяви",
-                        'url' => ['/company-job/index', 'id' => Yii::$app->user->id],
+                        'url' => ['/company/index', 'id' => Yii::$app->user->id],
                         'visible' => Yii::$app->user->can('company'),
                     ],
                     [
                         'label' => "Добави обява",
-                        'url' => ['/company-job/create'],
+                        'url' => ['/company/create'],
                         'visible' => Yii::$app->user->can('company'),
                     ],
                     [
@@ -106,9 +109,8 @@ use yii\bootstrap\NavBar;
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; НБУ Кариери <?= date('Y') ?></p>
+        <p class="pull-right">Open Sourced on <a href="https://github.com/ddinchev/nbu-careers" rel="external">GitHub</a></p>
     </div>
 </footer>
 

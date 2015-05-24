@@ -15,12 +15,43 @@ use yii\web\Controller;
 
 class DefaultController extends Controller
 {
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@']
+                    ],
+                    [
+                        'actions' => ['company-profile', 'logo-upload', 'logo-delete'],
+                        'allow' => true,
+                        'roles' => ['company']
+                    ],
+                    [
+                        'actions' => ['user-profile', 'avatar-upload', 'avatar-delete'],
+                        'allow' => true,
+                        'roles' => ['user']
+                    ],
+                ]
+            ]
+        ];
+    }
+
     /**
      * @return array
      */
     public function actions()
     {
         return [
+            // user avatar
             'avatar-upload' => [
                 'class' => UploadAction::className(),
                 'deleteRoute' => 'avatar-delete',
@@ -33,24 +64,20 @@ class DefaultController extends Controller
             ],
             'avatar-delete' => [
                 'class' => DeleteAction::className()
-            ]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    ['actions' => ['index'], 'allow' => true, 'roles' => ['@']],
-                    ['actions' => ['company-profile'], 'allow' => true, 'roles' => ['company']],
-                    ['actions' => ['user-profile'], 'allow' => true, 'roles' => ['user']],
-
-                ]
+            ],
+            // company logo
+            'logo-upload' => [
+                'class' => UploadAction::className(),
+                'deleteRoute' => 'logo-delete',
+                'on afterSave' => function ($event) {
+                    /* @var $file \League\Flysystem\File */
+                    $file = $event->file;
+                    $img = ImageManagerStatic::make($file->read())->fit(225, 150, null, 'center');
+                    $file->put($img->encode());
+                }
+            ],
+            'logo-delete' => [
+                'class' => DeleteAction::className()
             ]
         ];
     }

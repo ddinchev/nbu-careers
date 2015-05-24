@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * CompanyJobController implements the CRUD actions for Job model.
  */
-class CompanyJobController extends Controller
+class CompanyController extends Controller
 {
     public function behaviors()
     {
