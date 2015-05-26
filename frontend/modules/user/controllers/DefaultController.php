@@ -72,7 +72,7 @@ class DefaultController extends Controller
                 'on afterSave' => function ($event) {
                     /* @var $file \League\Flysystem\File */
                     $file = $event->file;
-                    $img = ImageManagerStatic::make($file->read())->fit(225, 150, null, 'center');
+                    $img = ImageManagerStatic::make($file->read())->fit(233, 144, null, 'center');
                     $file->put($img->encode());
                 }
             ],
