@@ -12,15 +12,15 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-md-5 job-category" style="font-size: 0.9em; font-style: italic; color: #333;">
                 <i class="fa fa-tags"></i>
-                Категория: <?=$model->jobCategory->name?>
+                Категория: <?=Html::a($model->jobCategory->name, ['site/index', 'JobSearch[job_category_id]' => $model->job_category_id])?>
             </div>
             <div class="col-md-3 job-type" style="font-size: 0.9em; font-style: italic; color: #333;">
                 <i class="fa fa-briefcase"></i>
-                Тип: <?=$model->getJobType()?>
+                Тип: <?=Html::a($model->getJobType(), ['site/index', 'JobSearch[job_type]' => $model->job_type])?>
             </div>
             <div class="col-md-4 job-employment-type" style="font-size: 0.9em; font-style: italic; color: #333;">
                 <i class="fa fa-clock-o"></i>
-                <?=$model->getEmploymentType()?>
+                На: <?=Html::a($model->getEmploymentType(), ['site/index', 'JobSearch[employment_type]' => $model->employment_type])?>
             </div>
         </div>
         <div class="job-description" style="margin-top: 10px;">

@@ -31,14 +31,14 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="col-md-2 col-centered">
                 <?php
-                echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes, [
+                echo $form->field($model, 'job_type')->dropDownList(Job::$jobTypes, [
                     'prompt' => 'Изберете'
                 ]);
                 ?>
             </div>
             <div class="col-md-2 col-centered">
                 <?php
-                echo $form->field($model, 'job_type')->dropDownList(Job::$jobTypes, [
+                echo $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes, [
                     'prompt' => 'Изберете'
                 ]);
                 ?>

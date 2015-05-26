@@ -25,19 +25,36 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?php
+
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'company_id',
-            'job_category_id',
             'title',
+            'ref_no',
+            [
+                'attribute' => 'company_id',
+                'value' => $model->company->name,
+            ],
+            [
+                'attribute' => 'job_type',
+                'value' => $model->getJobType(),
+            ],
+            [
+                'attribute' => 'employment_type',
+                'value' => $model->getEmploymentType(),
+            ],
+            [
+                'attribute' => 'job_category_id',
+                'value' => $model->jobCategory->name,
+            ],
             'description:ntext',
-            'employment_form',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatus(),
+            ],
         ],
-    ]) ?>
+    ]);
 
+    ?>
 </div>
