@@ -1,4 +1,25 @@
 /* Job Offers Interface */
+
+.job-search { max-width: 1000px; margin: 25px auto 40px auto;}
+.job-search-title {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    line-height: 0.1em;
+    margin: 25px 0 25px 0;
+}
+.job-search-title h2 {
+    font-size: 28px;
+    font-weight: 300;
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 0 10px;
+    display: inline-block;
+    margin-bottom: -9px;
+}
+.job-search label {
+    font-size: 12px;
+    font-weight: 400;
+}
 .job-index {
 
 }
@@ -12,3 +33,6 @@
 }
 .job-title { margin-top: 20px; margin-bottom: 10px; }
 .job-title a { font-size: 22px; font-weight: 300; }
+
+.job-index .company-name { font-size: 1.2em; font-weight: 300; color: #333; }
+.job-index .company-address { font-size: 0.9em; }

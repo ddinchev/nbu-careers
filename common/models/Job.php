@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Carbon\Carbon;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -181,5 +182,10 @@ class Job extends ActiveRecord
     public function getEmploymentType()
     {
         return $this->employment_type ? self::$employmentTypes[$this->employment_type] : null;
+    }
+
+    public function getHumanLastUpdated()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->updated_at)->diffForHumans();
     }
 }

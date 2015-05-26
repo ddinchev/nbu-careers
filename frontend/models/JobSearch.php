@@ -13,7 +13,7 @@ use common\models\Job;
  */
 class JobSearch extends Job
 {
-    public $score;
+    public $relevance;
 
     public $keywords;
 
@@ -70,8 +70,10 @@ class JobSearch extends Job
         ]);
 
         if ($this->keywords) {
+            // $query->addSelect(['*', 'MATCH (title, description) AGAINST (:keywords) AS relevance']);
             $query->andWhere('MATCH (title, description) AGAINST (:keywords)');
-            $query->addSelect(['*', 'MATCH (title, description) AGAINST (:keywords) AS score']);
+            $query->addOrderBy('relevance DESC');
+            $query->addSelect(['*', 'MATCH (title, description) AGAINST (:keywords) AS relevance']);
             $query->addParams([':keywords' => $this->keywords]);
         }
 
