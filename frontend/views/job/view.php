@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Button;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -14,47 +15,47 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('frontend', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('frontend', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
+    <div class="job-info">
+        <?php
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'ref_no',
+                'description:ntext',
+                [
+                    'attribute' => 'company_id',
+                    'label' => 'Компания',
+                    'format' => 'html',
+                    'value' => Html::a($model->company->getLogo() ? Html::img($model->company->getLogo()) : $model->company->name, [
+                        'company/view', 'id' => $model->company_id
+                    ])
+                ],
+                [
+                    'attribute' => 'job_type',
+                    'value' => $model->getJobType(),
+                ],
+                [
+                    'attribute' => 'employment_type',
+                    'value' => $model->getEmploymentType(),
+                ],
+                [
+                    'attribute' => 'job_category_id',
+                    'value' => $model->jobCategory->name,
+                ],
+                [
+                    'attribute' => 'updated_at',
+                    'label' => 'Последно обновена',
+                    'value' => $model->getHumanLastUpdated(),
+                ],
             ],
-        ]) ?>
-    </p>
+        ]);
+        ?>
+    </div>
 
-    <?php
-
-    echo DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'title',
-            'ref_no',
-            [
-                'attribute' => 'company_id',
-                'value' => $model->company->name,
-            ],
-            [
-                'attribute' => 'job_type',
-                'value' => $model->getJobType(),
-            ],
-            [
-                'attribute' => 'employment_type',
-                'value' => $model->getEmploymentType(),
-            ],
-            [
-                'attribute' => 'job_category_id',
-                'value' => $model->jobCategory->name,
-            ],
-            'description:ntext',
-            [
-                'attribute' => 'status',
-                'value' => $model->getStatus(),
-            ],
-        ],
-    ]);
-
-    ?>
+    <div class="apply-button-container">
+        <?=Html::a('Кандидатствай по тази обява', ['job/apply', 'id' => $model->id], [
+            'class' => 'btn btn-primary',
+            'id' => 'job-apply-button'
+        ])?>
+    </div>
 </div>

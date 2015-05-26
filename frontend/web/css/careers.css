@@ -51,3 +51,11 @@
 .job-index .company-address {
     font-size: 0.9em;
 }
+
+
+/* Job Offer Page */
+#job-apply-button {
+    width: 225px;
+    display: block;
+    margin: 10px auto;
+}
