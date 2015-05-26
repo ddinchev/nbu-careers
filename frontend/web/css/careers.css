@@ -31,8 +31,23 @@
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
-.job-title { margin-top: 20px; margin-bottom: 10px; }
-.job-title a { font-size: 22px; font-weight: 300; }
+.job-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.job-title a {
+    font-size: 22px;
+    font-weight: 300;
+}
+.job-last-updated {
+    font-size: 0.8em; color: #333;
+}
 
-.job-index .company-name { font-size: 1.2em; font-weight: 300; color: #333; }
-.job-index .company-address { font-size: 0.9em; }
+.job-index .company-name {
+    font-size: 1.2em;
+    font-weight: 300;
+    color: #333;
+}
+.job-index .company-address {
+    font-size: 0.9em;
+}

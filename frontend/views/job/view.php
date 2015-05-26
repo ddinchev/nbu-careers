@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Job */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Jobs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->company->name, 'url' => ['site/index', 'JobSearch[company_id]' => $model->company_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="job-view">

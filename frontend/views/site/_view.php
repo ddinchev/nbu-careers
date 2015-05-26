@@ -32,12 +32,12 @@ use yii\helpers\Html;
             <?php echo $model->company->logo ? Html::img($model->company->getLogo(), ['style' => 'width: 125px']) : ''; ?>
         </div>
         <div class="company-name">
-            <?=$model->company->name?>
+            <?=Html::a($model->company->name, ['site/index', 'JobSearch[company_id]' => $model->company_id])?>
         </div>
         <div class="company-address">
             <?=$model->company->address?>
         </div>
-        <div class="job-last-updated" style="font-size: 0.8em; color: #333;">
+        <div class="job-last-updated">
             <em>Последно обновена: <?=$model->getHumanLastUpdated()?></em>
         </div>
     </div>

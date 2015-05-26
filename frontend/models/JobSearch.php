@@ -23,7 +23,7 @@ class JobSearch extends Job
     public function rules()
     {
         return [
-            [['job_category_id', 'job_type', 'employment_type'], 'integer'],
+            [['job_category_id', 'job_type', 'employment_type', 'company_id'], 'integer'],
             ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
             ['employment_type', 'in', 'range' => array_keys(self::$employmentTypes)],
             ['job_type', 'in', 'range' => array_keys(self::$jobTypes)],
@@ -55,6 +55,10 @@ class JobSearch extends Job
             'query' => $query,
         ]);
 
+        $query->orderBy([
+            'updated_at' => SORT_DESC,
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -64,6 +68,7 @@ class JobSearch extends Job
         }
 
         $query->andFilterWhere([
+            'company_id' => $this->company_id,
             'job_category_id' => $this->job_category_id,
             'job_type' => $this->job_type,
             'employment_type' => $this->employment_type,
@@ -72,9 +77,11 @@ class JobSearch extends Job
         if ($this->keywords) {
             // $query->addSelect(['*', 'MATCH (title, description) AGAINST (:keywords) AS relevance']);
             $query->andWhere('MATCH (title, description) AGAINST (:keywords)');
-            $query->addOrderBy('relevance DESC');
             $query->addSelect(['*', 'MATCH (title, description) AGAINST (:keywords) AS relevance']);
             $query->addParams([':keywords' => $this->keywords]);
+            $query->orderBy = [
+                'relevance' => SORT_DESC
+            ];
         }
 
         return $dataProvider;
