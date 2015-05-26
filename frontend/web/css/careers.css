@@ -1,0 +1,14 @@
+/* Job Offers Interface */
+.job-index {
+
+}
+.job-offers-container {
+
+}
+.job-offer {
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+.job-title { margin-top: 20px; margin-bottom: 10px; }
+.job-title a { font-size: 22px; font-weight: 300; }
