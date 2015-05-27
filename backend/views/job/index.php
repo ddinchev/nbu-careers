@@ -54,12 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             [
-                'attribute' => 'description',
-                'value' => function (Job $data) {
-                    return $data->getShortDescription();
-                }
-            ],
-            [
                 'attribute' => 'status',
                 'filter' => Job::$statuses,
                 'value' => function (Job $data) {

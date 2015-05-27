@@ -21,9 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'name',
-            'address',
-            'website',
-            'description:ntext',
             [
                 'attribute' => 'status',
                 'filter' => Company::$statuses,
@@ -31,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->getStatus();
                 }
             ],
-            'user.email',
+            'address',
             [
                 'attribute' => 'logo',
                 'format' => 'html',
