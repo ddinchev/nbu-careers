@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'status')->dropDownList(Company::$statuses) ?>
+    <?= $form->field($model, 'status')->dropDownList(Company::getStatuses()) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

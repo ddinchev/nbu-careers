@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'attribute' => 'status',
-                'filter' => Company::$statuses,
+                'filter' => Company::getStatuses(),
                 'value' => function (Company $data) {
                     return $data->getStatus();
                 }

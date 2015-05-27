@@ -33,14 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'ref_no',
             [
                 'attribute' => 'job_type',
-                'filter' => Job::$jobTypes,
+                'filter' => Job::getJobTypes(),
                 'value' => function (Job $data) {
                     return $data->getJobType();
                 }
             ],
             [
                 'attribute' => 'employment_type',
-                'filter' => Job::$employmentTypes,
+                'filter' => Job::getEmploymentTypes(),
                 'value' => function (Job $data) {
                     return $data->getEmploymentType();
                 }
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             [
                 'attribute' => 'status',
-                'filter' => Job::$statuses,
+                'filter' => Job::getStatuses(),
                 'value' => function (Job $data) {
                     return $data->getStatus();
                 }

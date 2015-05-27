@@ -34,12 +34,6 @@ class Company extends ActiveRecord
     const STATUS_APPROVED = 1;
     const STATUS_REJECTED = 2;
 
-    public static $statuses = [
-        self::STATUS_PENDING => 'Изчакваща',
-        self::STATUS_APPROVED => 'Одобрена',
-        self::STATUS_REJECTED => 'Отхвърлена'
-    ];
-
     public $logo;
 
     public function behaviors()
@@ -82,7 +76,7 @@ class Company extends ActiveRecord
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             ['logo', 'safe'],
-            ['status', 'in', 'range' => array_keys(Company::$statuses), 'when' => function() {
+            ['status', 'in', 'range' => array_keys(Company::getStatuses()), 'when' => function() {
                 return Yii::$app->user->can('manager');
             }]
         ];
@@ -146,6 +140,15 @@ class Company extends ActiveRecord
      */
     public function getStatus()
     {
-        return self::$statuses[$this->status];
+        return self::getStatuses()[$this->status];
+    }
+
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_PENDING => Yii::t('app', 'Pending'), // 'Изчакваща',
+            self::STATUS_APPROVED => Yii::t('app', 'Approved'), // 'Одобрена',
+            self::STATUS_REJECTED => Yii::t('app', 'Rejected'), // 'Отхвърлена'
+        ];
     }
 }

@@ -33,31 +33,13 @@ class Job extends ActiveRecord
     const STATUS_APPROVED = 1;
     const STATUS_REJECTED = 2;
 
-    public static $statuses = [
-        self::STATUS_PENDING => 'Изчакваща',
-        self::STATUS_APPROVED => 'Одобрена',
-        self::STATUS_REJECTED => 'Отхвърлена'
-    ];
-
     const EMPLOYMENT_TYPE_PART_TIME = 1;
     const EMPLOYMENT_TYPE_FULL_TIME = 2;
-
-    public static $employmentTypes = [
-        self::EMPLOYMENT_TYPE_FULL_TIME => 'Пълен работен ден',
-        self::EMPLOYMENT_TYPE_PART_TIME => 'Половин работен ден'
-    ];
 
     const JOB_TYPE_INTERNSHIP = 1;
     const JOB_TYPE_SEASONAL = 2;
     const JOB_TYPE_REGULAR = 3;
     const JOB_TYPE_PROJECT = 4;
-
-    public static $jobTypes = [
-        self::JOB_TYPE_INTERNSHIP => 'Стаж',
-        self::JOB_TYPE_SEASONAL => 'Сезонна',
-        self::JOB_TYPE_REGULAR => 'Постоянна',
-        self::JOB_TYPE_PROJECT => 'Еднократен проект',
-    ];
 
     /**
      * @inheritdoc
@@ -91,7 +73,7 @@ class Job extends ActiveRecord
             ['company_id', 'exist', 'targetClass' => Company::className(), 'targetAttribute' => 'user_id'],
             ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
             ['employment_type', 'in', 'range' => array_keys(self::$employmentTypes)],
-            ['job_type', 'in', 'range' => array_keys(self::$jobTypes)],
+            ['job_type', 'in', 'range' => array_keys(self::getJobTypes())],
             ['title', 'string', 'max' => 60],
             ['ref_no', 'string', 'max' => 20],
             [['description'], 'string', 'min' => 160],
@@ -118,6 +100,33 @@ class Job extends ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+        ];
+    }
+
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_PENDING => Yii::t('app', 'Pending'), // 'Изчакваща',
+            self::STATUS_APPROVED => Yii::t('app', 'Approved'), // 'Одобрена',
+            self::STATUS_REJECTED => Yii::t('app', 'Rejected'), // 'Отхвърлена'
+        ];
+    }
+
+    public static function getEmploymentTypes()
+    {
+        return [
+            self::EMPLOYMENT_TYPE_FULL_TIME => Yii::t('app', 'Full-Time'), // 'Пълен работен ден',
+            self::EMPLOYMENT_TYPE_PART_TIME => Yii::t('app', 'Part-Time'), // 'Половин работен ден'
+        ];
+    }
+
+    public static function getJobTypes()
+    {
+        return [
+            self::JOB_TYPE_INTERNSHIP => Yii::t('app', 'Internship'), // 'Стаж',
+            self::JOB_TYPE_SEASONAL => Yii::t('app', 'Seasonal'), // 'Сезонна',
+            self::JOB_TYPE_REGULAR => Yii::t('app', 'Permanent'), // 'Постоянна',
+            self::JOB_TYPE_PROJECT => Yii::t('app', 'Project'), // 'Еднократен проект',
         ];
     }
 
@@ -168,7 +177,7 @@ class Job extends ActiveRecord
      */
     public function getStatus()
     {
-        return self::$statuses[$this->status];
+        return self::getStatuses()[$this->status];
     }
 
     /**
@@ -176,12 +185,12 @@ class Job extends ActiveRecord
      */
     public function getJobType()
     {
-        return $this->job_type ? self::$jobTypes[$this->job_type] : null;
+        return $this->job_type ? self::getJobTypes()[$this->job_type] : null;
     }
 
     public function getEmploymentType()
     {
-        return $this->employment_type ? self::$employmentTypes[$this->employment_type] : null;
+        return $this->employment_type ? self::getEmploymentTypes()[$this->employment_type] : null;
     }
 
     public function getHumanLastUpdated()

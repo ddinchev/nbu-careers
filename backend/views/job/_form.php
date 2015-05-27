@@ -23,13 +23,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'job_category_id')->dropDownList(ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name')) ?>
 
-    <?= $form->field($model, 'employment_type')->dropDownList(Job::$employmentTypes) ?>
+    <?= $form->field($model, 'employment_type')->dropDownList(Job::getEmploymentTypes()) ?>
 
-    <?= $form->field($model, 'job_type')->dropDownList(Job::$jobTypes) ?>
+    <?= $form->field($model, 'job_type')->dropDownList(Job::getJobTypes()) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(Job::$statuses) ?>
+    <?= $form->field($model, 'status')->dropDownList(Job::getStatuses()) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 

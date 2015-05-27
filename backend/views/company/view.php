@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status',
-                'value' => Company::$statuses[$model->status]
+                'value' => Company::getStatuses()[$model->status]
             ],
             'created_at',
             'updated_at',
