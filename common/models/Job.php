@@ -72,12 +72,12 @@ class Job extends ActiveRecord
             [['company_id', 'job_category_id', 'employment_type', 'job_type'], 'integer'],
             ['company_id', 'exist', 'targetClass' => Company::className(), 'targetAttribute' => 'user_id'],
             ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
-            ['employment_type', 'in', 'range' => array_keys(self::$employmentTypes)],
+            ['employment_type', 'in', 'range' => array_keys(self::getEmploymentTypes())],
             ['job_type', 'in', 'range' => array_keys(self::getJobTypes())],
             ['title', 'string', 'max' => 60],
             ['ref_no', 'string', 'max' => 20],
             [['description'], 'string', 'min' => 160],
-            ['status', 'in', 'range' => array_keys(Job::$statuses), 'when' => function() {
+            ['status', 'in', 'range' => array_keys(Job::getStatuses()), 'when' => function() {
                 return Yii::$app->user->can('manager');
             }]
         ];
