@@ -10,7 +10,7 @@ server {
 	root /var/www/frontend/web;
 	index index.php index.html;
 
-	server_name yii2-starter-kit.dev;
+	server_name nbu-careers.dev;
 
 	charset utf-8;
 
@@ -51,7 +51,7 @@ server {
 	root /var/www/backend/web;
 	index index.php index.html;
 
-	server_name backend.yii2-starter-kit.dev;
+	server_name backend.nbu-careers.dev;
 
 	charset utf-8;
 
@@ -78,7 +78,7 @@ server {
 ## STORAGE ##
 server {
 	listen 80;
-	server_name storage.yii2-starter-kit.dev;
+	server_name storage.nbu-careers.dev;
 
 	root /var/www/storage/web;
 	index index.html;
@@ -100,6 +100,6 @@ server {
 ### WWW Redirect ###
 #server {
 #    listen       80;
-#    server_name  www.yii2-starter-kit.dev;
-#    return       301 http://yii2-starter-kit.dev$request_uri;
+#    server_name  www.nbu-careers.dev;
+#    return       301 http://nbu-careers.dev$request_uri;
 #}

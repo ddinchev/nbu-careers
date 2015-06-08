@@ -62,14 +62,14 @@ fi
 php /var/www/init --env=dev --overwrite=n
 
 # create nginx config
-if [ ! -f /etc/nginx/sites-enabled/yii2-starter-kit.dev ]; then
-    sudo ln -s /var/www/nginx.conf /etc/nginx/sites-enabled/yii2-starter-kit.dev
+if [ ! -f /etc/nginx/sites-enabled/nbu-careers.dev ]; then
+    sudo ln -s /var/www/nginx.conf /etc/nginx/sites-enabled/nbu-careers.dev
 fi
 
 # Configuring application
 echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root'" | mysql -uroot -proot
 echo "FLUSH PRIVILEGES'" | mysql -uroot -proot
-echo "CREATE DATABASE IF NOT EXISTS \`yii2-starter-kit\` CHARACTER SET utf8 COLLATE utf8_unicode_ci" | mysql -uroot -proot
+echo "CREATE DATABASE IF NOT EXISTS \`nbu-careers\` CHARACTER SET utf8 COLLATE utf8_unicode_ci" | mysql -uroot -proot
 
 php /var/www/console/yii migrate up --interactive=0
 php /var/www/console/yii rbac/init

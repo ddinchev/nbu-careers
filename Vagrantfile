@@ -5,9 +5,9 @@
 require 'yaml'
 options = YAML.load_file File.join(File.dirname(__FILE__), 'vagrant.yaml')
 domains = [
-    "yii2-starter-kit.dev",
-    "backend.yii2-starter-kit.dev",
-    "storage.yii2-starter-kit.dev"
+    "nbu-careers.dev",
+    "backend.nbu-careers.dev",
+    "storage.nbu-careers.dev"
 ]
 packages = [
     "php5-cli",
@@ -25,7 +25,7 @@ packages = [
 ]
 
 Vagrant.configure(2) do |config|
-  config.vm.post_up_message = "Done! Now you can access site at http://yii2-starter-kit.dev"
+  config.vm.post_up_message = "Done! Now you can access site at http://nbu-careers.dev"
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.memory = options['vm']['memory']
