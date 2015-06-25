@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 
 /**
  * JobSearch represents the model behind the search form about `common\models\Job`.
@@ -12,13 +13,19 @@ use yii\data\ActiveDataProvider;
 class JobSearch extends Job
 {
     /**
+     * Used for related search of companyName
+     * @var string
+     */
+    public $company_name;
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
             [['id', 'company_id', 'job_category_id', 'job_type', 'employment_type', 'status'], 'integer'],
-            [['title', 'ref_no', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'ref_no', 'description', 'company_name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -33,9 +40,7 @@ class JobSearch extends Job
 
     /**
      * Creates data provider instance with search query applied
-     *
      * @param array $params
-     *
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -44,15 +49,17 @@ class JobSearch extends Job
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
+        ]);;
+
+        // related sorting
+        $dataProvider->getSort()->attributes['company_name'] = [
+            'asc' => ['company.name' => SORT_ASC],
+            'desc' => ['company.name' => SORT_DESC],
+            'label' => Yii::t('backend', 'Company Name'),
+            'default' => SORT_ASC
+        ];
 
         $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -68,6 +75,13 @@ class JobSearch extends Job
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'ref_no', $this->ref_no])
             ->andFilterWhere(['like', 'description', $this->description]);
+
+        // related search
+        $query->joinWith([
+            'company' => function (ActiveQuery $q) {
+                $q->andFilterWhere(['like', 'company.name', $this->company_name]);
+            }
+        ]);
 
         return $dataProvider;
     }

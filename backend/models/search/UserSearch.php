@@ -13,13 +13,19 @@ use common\models\User;
 class UserSearch extends User
 {
     /**
+     * Used to filter users by their role.
+     * @var string
+     */
+    public $role;
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
             [['id', 'status', 'created_at', 'updated_at', 'logged_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'role'], 'safe'],
         ];
     }
 
@@ -48,12 +54,16 @@ class UserSearch extends User
             return $dataProvider;
         }
 
+        // related search
+        $query->join('INNER JOIN', 'rbac_auth_assignment', 'rbac_auth_assignment.user_id=user.id');
+
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'logged_at' => $this->logged_at
+            'logged_at' => $this->logged_at,
+            'rbac_auth_assignment.item_name' => $this->role,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

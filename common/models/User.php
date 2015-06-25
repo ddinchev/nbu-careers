@@ -252,6 +252,30 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns user roles list
+     * @return array
+     */
+    public static function getRoles() {
+        return [
+            self::ROLE_USER => Yii::t('common', 'User'),
+            self::ROLE_COMPANY => Yii::t('common', 'Company'),
+            self::ROLE_MANAGER => Yii::t('common', 'Manager'),
+            self::ROLE_ADMINISTRATOR => Yii::t('common', 'Administrator'),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        // FIXME: This implies that a given user has only one role,
+        // FIXME: which is correct as of it's implementation time
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
+        return !empty($roles) ? reset($roles)->name : null;
+    }
+
+    /**
      * Returns user statuses list
      * @param mixed $status
      * @return array|mixed

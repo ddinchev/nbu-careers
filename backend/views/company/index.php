@@ -29,6 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'address',
+            'contact_name',
+            'contact_email',
             [
                 'attribute' => 'logo',
                 'format' => 'html',

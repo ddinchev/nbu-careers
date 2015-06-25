@@ -24,8 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             [
-                'attribute' => 'company_id',
-                'filter' => ArrayHelper::map(Company::find()->all(), 'user_id', 'name'),
+                'attribute' => 'company_name',
                 'value' => function (Job $data) {
                     return $data->company->name;
                 }

@@ -16,6 +16,8 @@ use yii\db\Expression;
  * @property string $address
  * @property string $website
  * @property string $description
+ * @property string $contact_name
+ * @property string $contact_email
  * @property string $latitude
  * @property string $longitude
  * @property string $logo_name
@@ -92,6 +94,8 @@ class Company extends ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'address' => Yii::t('app', 'Address'),
             'description' => Yii::t('app', 'Description'),
+            'contact_name' => Yii::t('app', 'Contact name'),
+            'contact_email' => Yii::t('app', 'Contact email'),
             'latitude' => Yii::t('app', 'Latitude'),
             'longitude' => Yii::t('app', 'Longitude'),
             'logo_path' => Yii::t('app', 'Logo Path'),
@@ -146,9 +150,9 @@ class Company extends ActiveRecord
     public static function getStatuses()
     {
         return [
-            self::STATUS_PENDING => Yii::t('app', 'Pending'), // 'Изчакваща',
-            self::STATUS_APPROVED => Yii::t('app', 'Approved'), // 'Одобрена',
-            self::STATUS_REJECTED => Yii::t('app', 'Rejected'), // 'Отхвърлена'
+            self::STATUS_PENDING => Yii::t('app', 'Pending'),
+            self::STATUS_APPROVED => Yii::t('app', 'Approved'),
+            self::STATUS_REJECTED => Yii::t('app', 'Rejected'),
         ];
     }
 }

@@ -139,6 +139,7 @@ use yii\widgets\Breadcrumbs;
                             'icon'=>'<i class="fa fa-edit"></i>',
                             'options'=>['class'=>'treeview'],
                             'items'=>[
+                                ['label'=>Yii::t('backend', 'Job Category'), 'url'=>['/job-category/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Static pages'), 'url'=>['/page/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Articles'), 'url'=>['/article/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Article Categories'), 'url'=>['/article-category/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
@@ -152,6 +153,18 @@ use yii\widgets\Breadcrumbs;
                             'icon'=>'<i class="fa fa-users"></i>',
                             'url'=>['/user/index'],
                             'visible'=>Yii::$app->user->can('administrator')
+                        ],
+                        [
+                            'label'=>Yii::t('backend', 'Companies'),
+                            'icon'=>'<i class="fa fa-users"></i>',
+                            'url'=>['/company/index'],
+                            'visible'=>Yii::$app->user->can('manager')
+                        ],
+                        [
+                            'label'=>Yii::t('backend', 'Jobs'),
+                            'icon'=>'<i class="fa fa-users"></i>',
+                            'url'=>['/job/index'],
+                            'visible'=>Yii::$app->user->can('manager')
                         ],
                         [
                             'label'=>Yii::t('backend', 'System'),
