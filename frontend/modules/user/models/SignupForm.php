@@ -63,6 +63,7 @@ class SignUpForm extends Model
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);
+            $user->locale = Yii::$app->language;
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $user->save();

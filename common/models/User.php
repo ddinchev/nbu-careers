@@ -15,15 +15,16 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
- * @property string $auth_key
- * @property string $publicIdentity
+ * @property string $locale
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $logged_at
+ * @property string $publicIdentity
  * @property string $password write-only password
  * @property UserProfile $userProfile
  * @property Company $company
@@ -280,10 +281,10 @@ class User extends ActiveRecord implements IdentityInterface
             ]
         ]));
         $profile = new UserProfile();
-        $profile->locale = Yii::$app->language;
         $profile->load($profileData, '');
         $this->link('userProfile', $profile);
         $this->trigger(self::EVENT_AFTER_SIGNUP);
+
         // Default role
         $auth = Yii::$app->authManager;
         $auth->assign($auth->getRole(User::ROLE_USER), $this->getId());
@@ -292,22 +293,26 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Creates user profile and application event
      * @param array $companyData
+     * @param array $profileData
      */
-    public function afterCompanySignUp(array $companyData = [])
+    public function afterCompanySignUp(array $companyData = [], array $profileData = [])
     {
-        TimelineEvent::log(
-            'company',
-            'signup',
-            [
+        Yii::$app->commandBus->handle(new AddToTimelineCommand([
+            'category' => 'company',
+            'event' => 'signup',
+            'data' => [
                 'publicIdentity' => $this->getPublicIdentity(),
                 'userId' => $this->getId(),
                 'created_at' => $this->created_at
             ]
-        );
+        ]));
+
+        // company profile
         $company = new Company();
         $company->load($companyData, '');
         $this->link('company', $company);
         $this->trigger(self::EVENT_AFTER_SIGNUP);
+
         // Company role
         $auth = Yii::$app->authManager;
         $auth->assign($auth->getRole(User::ROLE_COMPANY), $this->getId());

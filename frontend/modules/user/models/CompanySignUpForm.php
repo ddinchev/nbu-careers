@@ -13,14 +13,17 @@ class CompanySignUpForm extends SignUpForm
     public $website;
     public $address;
 
+    public $contact_name;
+    public $contact_email;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return ArrayHelper::merge(parent::rules(), [
-            [['name', 'website', 'address'], 'filter', 'filter' => 'trim'],
-            [['name', 'website', 'address'], 'required'],
+            [['name', 'website', 'address', 'contact_name', 'contact_email'], 'filter', 'filter' => 'trim'],
+            [['name', 'website', 'address', 'contact_name', 'contact_email'], 'required'],
             ['name', 'string', 'min' => 4, 'max' => 255],
             ['website', 'url', 'defaultScheme' => 'http'],
             ['name', 'unique',
@@ -30,7 +33,8 @@ class CompanySignUpForm extends SignUpForm
             ['website', 'unique',
                 'targetClass' => '\common\models\Company',
                 'message' => Yii::t('frontend', 'Company with this website already exists.')
-            ]
+            ],
+            ['contact_email', 'unique', 'message' => Yii::t('frontend', 'Contact person with this email already exists.')]
         ]);
     }
 
@@ -40,7 +44,16 @@ class CompanySignUpForm extends SignUpForm
             'name' => Yii::t('frontend', 'Name'),
             'website' => Yii::t('frontend', 'Website'),
             'address' => Yii::t('frontend', 'Address'),
+            'contact_name' => Yii::t('frontend', 'Contact name'),
+            'contact_email' => Yii::t('frontend', 'Contact email')
         ]);
+    }
+
+    public function attributeHints()
+    {
+        return [
+            'contact_email' => Yii::t('frontend', 'Job applications will be sent to this email.')
+        ];
     }
 
     /**
@@ -55,6 +68,7 @@ class CompanySignUpForm extends SignUpForm
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);
+            $user->locale = Yii::$app->language;
 
             $transaction = Yii::$app->db->beginTransaction();
             try {
@@ -66,7 +80,7 @@ class CompanySignUpForm extends SignUpForm
                 ]);
                 $transaction->commit();
                 return $user;
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $transaction->rollBack();
             }
         }

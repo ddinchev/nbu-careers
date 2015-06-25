@@ -22,14 +22,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'email') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
             </fieldset>
-        </div>
-
-        <div class="col-md-6">
             <fieldset>
                 <legend><?=Yii::t('frontend', 'Company information')?></legend>
                 <?= $form->field($model, 'name') ?>
                 <?= $form->field($model, 'website') ?>
                 <?= $form->field($model, 'address') ?>
+            </fieldset>
+            <fieldset>
+                <legend><?=Yii::t('frontend', 'Contact information')?></legend>
+                <?= $form->field($model, 'contact_name') ?>
+                <?= $form->field($model, 'contact_email') ?>
             </fieldset>
         </div>
     </div>
@@ -37,7 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('frontend', 'Sign up'), ['class' => 'btn btn-primary', 'name' => 'sign-up-button']) ?>
+                <?php
+                    echo Html::submitButton(Yii::t('frontend', 'Sign up'), [
+                        'class' => 'btn btn-primary',
+                        'name' => 'sign-up-button'
+                    ]);
+                ?>
             </div>
         </div>
     </div>
