@@ -2,12 +2,12 @@
 
 namespace backend\controllers;
 
-use Yii;
+use backend\models\search\JobSearch;
 use common\models\Job;
-use common\models\JobSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * JobController implements the CRUD actions for Job model.

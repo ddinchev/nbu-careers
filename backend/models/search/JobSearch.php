@@ -1,7 +1,8 @@
 <?php
 
-namespace common\models;
+namespace backend\models\search;
 
+use common\models\Job;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;

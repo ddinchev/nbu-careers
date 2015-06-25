@@ -2,12 +2,12 @@
 
 namespace backend\controllers;
 
-use Yii;
+use backend\models\search\CompanySearch;
 use common\models\Company;
-use common\models\CompanySearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CompanyController implements the CRUD actions for Company model.

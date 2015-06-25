@@ -1,6 +1,5 @@
 <?php
 
-use common\models\Company;
 use common\models\Job;
 use common\models\JobCategory;
 use yii\helpers\ArrayHelper;
@@ -8,7 +7,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\JobSearch */
+/* @var $searchModel backend\models\search\JobSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('backend', 'Jobs');
