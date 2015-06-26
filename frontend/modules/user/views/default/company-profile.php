@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php echo $form->field($model->getModel('company'), 'address')->textInput(['maxlength' => 255]) ?>
 
+                <?php echo $form->field($model->getModel('company'), 'contact_name')->textInput(['maxlength' => 255]) ?>
+
+                <?php echo $form->field($model->getModel('company'), 'contact_email')->textInput(['maxlength' => 255]) ?>
+
                 <?php echo $form->field($model->getModel('company'), 'description')->textarea(['rows' => 8]) ?>
 
                 <?php

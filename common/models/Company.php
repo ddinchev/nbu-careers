@@ -70,7 +70,8 @@ class Company extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'address', 'website'], 'required'],
+            [['user_id', 'name', 'address', 'website', 'contact_name', 'contact_email'], 'filter', 'filter' => 'trim'],
+            [['user_id', 'name', 'address', 'website', 'contact_name', 'contact_email'], 'required'],
             ['user_id', 'integer'],
             ['user_id', 'exist', 'targetClass' => '\common\models\User', 'targetAttribute' => 'id'],
             ['website', 'url', 'defaultScheme' => 'http'],
@@ -90,26 +91,26 @@ class Company extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => Yii::t('app', 'User ID'),
-            'name' => Yii::t('app', 'Name'),
-            'address' => Yii::t('app', 'Address'),
-            'description' => Yii::t('app', 'Description'),
-            'contact_name' => Yii::t('app', 'Contact name'),
-            'contact_email' => Yii::t('app', 'Contact email'),
-            'latitude' => Yii::t('app', 'Latitude'),
-            'longitude' => Yii::t('app', 'Longitude'),
-            'logo_path' => Yii::t('app', 'Logo Path'),
-            'logo_base_url' => Yii::t('app', 'Logo Base Url'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'user_id' => Yii::t('common', 'User ID'),
+            'name' => Yii::t('common', 'Name'),
+            'address' => Yii::t('common', 'Address'),
+            'description' => Yii::t('common', 'Description'),
+            'contact_name' => Yii::t('common', 'Contact name'),
+            'contact_email' => Yii::t('common', 'Contact email'),
+            'latitude' => Yii::t('common', 'Latitude'),
+            'longitude' => Yii::t('common', 'Longitude'),
+            'logo_path' => Yii::t('common', 'Logo Path'),
+            'logo_base_url' => Yii::t('common', 'Logo Base Url'),
+            'status' => Yii::t('common', 'Status'),
+            'created_at' => Yii::t('common', 'Created At'),
+            'updated_at' => Yii::t('common', 'Updated At'),
         ];
     }
 
     public function attributeHints()
     {
         return [
-            'logo' => Yii::t('app', 'For best results upload a 2:1 logo image. It will be cropped otherwise.'),
+            'logo' => Yii::t('common', 'For best results upload a 2:1 logo image. It will be cropped otherwise.'),
         ];
     }
 
@@ -150,9 +151,9 @@ class Company extends ActiveRecord
     public static function getStatuses()
     {
         return [
-            self::STATUS_PENDING => Yii::t('app', 'Pending'),
-            self::STATUS_APPROVED => Yii::t('app', 'Approved'),
-            self::STATUS_REJECTED => Yii::t('app', 'Rejected'),
+            self::STATUS_PENDING => Yii::t('common', 'Pending'),
+            self::STATUS_APPROVED => Yii::t('common', 'Approved'),
+            self::STATUS_REJECTED => Yii::t('common', 'Rejected'),
         ];
     }
 }

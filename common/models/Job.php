@@ -89,44 +89,44 @@ class Job extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'ref_no' => Yii::t('app', 'Ref.No'),
-            'company_id' => Yii::t('app', 'Company ID'),
-            'job_category_id' => Yii::t('app', 'Category'),
-            'employment_type' => Yii::t('app', 'Employment Type'),
-            'job_type' => Yii::t('app', 'Job Type'),
-            'title' => Yii::t('app', 'Title'),
-            'description' => Yii::t('app', 'Description'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('common', 'ID'),
+            'ref_no' => Yii::t('common', 'Ref.No'),
+            'company_id' => Yii::t('common', 'Company ID'),
+            'job_category_id' => Yii::t('common', 'Category'),
+            'employment_type' => Yii::t('common', 'Employment Type'),
+            'job_type' => Yii::t('common', 'Job Type'),
+            'title' => Yii::t('common', 'Title'),
+            'description' => Yii::t('common', 'Description'),
+            'status' => Yii::t('common', 'Status'),
+            'created_at' => Yii::t('common', 'Created At'),
+            'updated_at' => Yii::t('common', 'Updated At'),
         ];
     }
 
     public static function getStatuses()
     {
         return [
-            self::STATUS_PENDING => Yii::t('app', 'Pending'), // 'Изчакваща',
-            self::STATUS_APPROVED => Yii::t('app', 'Approved'), // 'Одобрена',
-            self::STATUS_REJECTED => Yii::t('app', 'Rejected'), // 'Отхвърлена'
+            self::STATUS_PENDING => Yii::t('common', 'Pending'), // 'Изчакваща',
+            self::STATUS_APPROVED => Yii::t('common', 'Approved'), // 'Одобрена',
+            self::STATUS_REJECTED => Yii::t('common', 'Rejected'), // 'Отхвърлена'
         ];
     }
 
     public static function getEmploymentTypes()
     {
         return [
-            self::EMPLOYMENT_TYPE_FULL_TIME => Yii::t('app', 'Full-Time'), // 'Пълен работен ден',
-            self::EMPLOYMENT_TYPE_PART_TIME => Yii::t('app', 'Part-Time'), // 'Половин работен ден'
+            self::EMPLOYMENT_TYPE_FULL_TIME => Yii::t('common', 'Full-Time'), // 'Пълен работен ден',
+            self::EMPLOYMENT_TYPE_PART_TIME => Yii::t('common', 'Part-Time'), // 'Половин работен ден'
         ];
     }
 
     public static function getJobTypes()
     {
         return [
-            self::JOB_TYPE_INTERNSHIP => Yii::t('app', 'Internship'), // 'Стаж',
-            self::JOB_TYPE_SEASONAL => Yii::t('app', 'Seasonal'), // 'Сезонна',
-            self::JOB_TYPE_REGULAR => Yii::t('app', 'Permanent'), // 'Постоянна',
-            self::JOB_TYPE_PROJECT => Yii::t('app', 'Project'), // 'Еднократен проект',
+            self::JOB_TYPE_INTERNSHIP => Yii::t('common', 'Internship'), // 'Стаж',
+            self::JOB_TYPE_SEASONAL => Yii::t('common', 'Seasonal'), // 'Сезонна',
+            self::JOB_TYPE_REGULAR => Yii::t('common', 'Permanent'), // 'Постоянна',
+            self::JOB_TYPE_PROJECT => Yii::t('common', 'Project'), // 'Еднократен проект',
         ];
     }
 
