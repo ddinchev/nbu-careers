@@ -1,43 +1,53 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Job */
+/* @var $model common\models\Company */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Jobs'), 'url' => ['index']];
+$this->title = Yii::t('frontend', 'Job offers by {company-name}', ['company-name' => $model->name]);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="job-view">
+<div id="company-view-page">
+    <div class="company-page-title">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-md-9">
+            <?php
+            echo ListView::widget([
+                'dataProvider' => $model->getPublicJobOffers(),
+                'itemOptions' => ['class' => 'item'],
+                'layout' => "{items}\n{pager}",
+                'itemView' => function ($model, $key, $index, $widget) {
+                    return $this->render('_job', ['model' => $model]);
+                },
+            ]);
+            ?>
+        </div>
 
-    <p>
-        <?= Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('frontend', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('frontend', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'company_id',
-            'job_category_id',
-            'title',
-            'description:ntext',
-            // 'employment_form',
-            // 'status',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
-
+        <div class="col-md-3">
+            <div class="company-logo">
+                <?php echo $model->logo ? Html::img($model->getLogo(), ['style' => 'width: 125px']) : ''; ?>
+            </div>
+            <div class="company-name">
+                <?php echo $model->name ?>
+            </div>
+            <?php if ($model->website): ?>
+            <div class="company-website">
+                <?php echo Html::a(parse_url($model->website, PHP_URL_HOST), $model->website, ['target' => '_blank']); ?>
+            </div>
+            <?php endif; ?>
+            <div class="company-address">
+                <?php echo Html::encode($model->address) ?>
+            </div>
+            <?php if ($model->description): ?>
+            <div class="company-description">
+                <?php echo Html::encode($model->description); ?>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>

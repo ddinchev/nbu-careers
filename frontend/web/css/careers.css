@@ -23,9 +23,6 @@
 .job-index {
 
 }
-.job-offers-container {
-
-}
 .job-offer {
     margin-top: 15px;
     padding-bottom: 15px;
@@ -40,7 +37,8 @@
     font-weight: 300;
 }
 .job-last-updated {
-    font-size: 0.8em; color: #333;
+    font-size: 0.8em;
+    color: #333;
 }
 
 .job-index .company-name {
@@ -51,6 +49,10 @@
 .job-index .company-address {
     font-size: 0.9em;
 }
+.top-companies .company-row {
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
 
 
 /* Job Offer Page */
@@ -58,4 +60,32 @@
     width: 225px;
     display: block;
     margin: 10px auto;
+}
+
+/* Company view page */
+
+.company-page-title {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    line-height: 0.1em;
+    margin: 10px 0 40px 0;
+}
+.company-page-title h1 {
+    font-size: 28px;
+    font-weight: 300;
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 0 10px;
+    display: inline-block;
+    margin-bottom: -9px;
+}
+
+.company-description {
+    font-size: 14px;
+    margin-top: 15px;
+}
+#company-view-page .job-last-updated {
+    font-size: 0.9em;
+    font-weight: 300;
+    margin-top: 5px;
 }

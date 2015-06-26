@@ -5,6 +5,7 @@ namespace common\models;
 use trntv\filekit\behaviors\UploadBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
@@ -110,7 +111,7 @@ class Company extends ActiveRecord
     public function attributeHints()
     {
         return [
-            'logo' => Yii::t('common', 'For best results upload a 2:1 logo image. It will be cropped otherwise.'),
+            'logo' => Yii::t('common', 'For best results upload a 2:1 logo image. It will be cropped otherwise.')
         ];
     }
 
@@ -155,5 +156,39 @@ class Company extends ActiveRecord
             self::STATUS_APPROVED => Yii::t('common', 'Approved'),
             self::STATUS_REJECTED => Yii::t('common', 'Rejected'),
         ];
+    }
+
+    /**
+     * TODO: This is just a prototype, order by applicants count
+     * @return ActiveDataProvider
+     */
+    public static function getTopCompanies()
+    {
+        $query = Company::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $query->select(['company.*', 'COUNT(job.id) AS company_jobs']);
+        $query->join('INNER JOIN', 'job', 'job.company_id=company.user_id');
+        $query->groupBy('company.user_id');
+        $query->orderBy(['company_jobs' => SORT_DESC]);
+        $query->andHaving('company_jobs>0');
+        $query->limit(15);
+        return $dataProvider;
+    }
+
+    /**
+     * Simply used to fetch the job offers on company dashboard page.
+     * @return ActiveDataProvider
+     */
+    public function getPublicJobOffers()
+    {
+        $query = Job::find()->where(['company_id' => $this->user_id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $query->andWhere('published=1');
+        $query->andWhere('status=' . Company::STATUS_APPROVED);
+        return $dataProvider;
     }
 }

@@ -15,9 +15,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'title')->textInput(['maxlength' => 60]) ?>
+            <?php echo $form->field($model, 'title')->textInput(['maxlength' => 60]) ?>
 
-            <?= $form->field($model, 'ref_no')->textInput(['maxlength' => 30]) ?>
+            <?php echo $form->field($model, 'ref_no')->textInput(['maxlength' => 30]) ?>
 
             <?php
             echo $form->field($model, 'job_category_id')->dropDownList(
@@ -38,10 +38,12 @@ use yii\widgets\ActiveForm;
             ]);
             ?>
 
-            <?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
+            <?php echo $form->field($model, 'published')->checkbox(); ?>
+
+            <?php echo $form->field($model, 'description')->textarea(['rows' => 8]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                <?php echo Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
             </div>
         </div>
     </div>

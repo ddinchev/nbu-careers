@@ -66,18 +66,18 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                             'visible' => Yii::$app->user->can('user'),
                         ],
                         [
+                            'label' => Yii::t('frontend', 'Dashboard'),
+                            'url' => ['/job/dashboard'],
+                            'visible' => Yii::$app->user->can('company'),
+                        ],
+                        [
                             'label' => Yii::t('frontend', 'Company profile'),
                             'url' => ['/user/default/company-profile'],
                             'visible' => Yii::$app->user->can('company'),
                         ],
                         [
-                            'label' => Yii::t('frontend', 'My offers'),
-                            'url' => ['/company/index', 'id' => Yii::$app->user->id],
-                            'visible' => Yii::$app->user->can('company'),
-                        ],
-                        [
-                            'label' => Yii::t('frontend', "Add job offer"),
-                            'url' => ['/company/create'],
+                            'label' => Yii::t('frontend', 'Add job offer'),
+                            'url' => ['/job/create'],
                             'visible' => Yii::$app->user->can('company'),
                         ],
                         [

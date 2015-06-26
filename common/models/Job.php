@@ -20,6 +20,7 @@ use yii\helpers\StringHelper;
  * @property string $title
  * @property string $ref_no
  * @property string $description
+ * @property integer $published
  * @property integer $status
  * @property string $created_at
  * @property string $updated_at
@@ -69,7 +70,7 @@ class Job extends ActiveRecord
     {
         return [
             [['company_id', 'job_category_id', 'job_type', 'employment_type', 'title', 'ref_no', 'description'], 'required'],
-            [['company_id', 'job_category_id', 'employment_type', 'job_type'], 'integer'],
+            [['company_id', 'job_category_id', 'employment_type', 'job_type', 'published'], 'integer'],
             ['company_id', 'exist', 'targetClass' => Company::className(), 'targetAttribute' => 'user_id'],
             ['job_category_id', 'exist', 'targetClass' => JobCategory::className(), 'targetAttribute' => 'id'],
             ['employment_type', 'in', 'range' => array_keys(self::getEmploymentTypes())],
@@ -97,9 +98,17 @@ class Job extends ActiveRecord
             'job_type' => Yii::t('common', 'Job Type'),
             'title' => Yii::t('common', 'Title'),
             'description' => Yii::t('common', 'Description'),
+            'published' => Yii::t('common', 'Published'),
             'status' => Yii::t('common', 'Status'),
             'created_at' => Yii::t('common', 'Created At'),
             'updated_at' => Yii::t('common', 'Updated At'),
+        ];
+    }
+
+    public function attributeHints()
+    {
+        return [
+            'published' => Yii::t('common', 'The job offer should be both approved (by administrator) and published to show up in results.')
         ];
     }
 

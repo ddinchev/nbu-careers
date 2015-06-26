@@ -55,6 +55,9 @@ class JobSearch extends Job
             'query' => $query,
         ]);
 
+        // show only published offers
+        $query->andWhere('published=1');
+
         $query->orderBy([
             'updated_at' => SORT_DESC,
         ]);

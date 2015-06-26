@@ -29,6 +29,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
 
+    <?= $form->field($model, 'published')->checkbox() ?>
+
     <?= $form->field($model, 'status')->dropDownList(Job::getStatuses()) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
@@ -40,5 +42,4 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>

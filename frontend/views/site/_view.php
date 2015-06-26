@@ -33,13 +33,13 @@ use yii\helpers\Html;
             <?php echo $model->company->logo ? Html::img($model->company->getLogo(), ['style' => 'width: 125px']) : ''; ?>
         </div>
         <div class="company-name">
-            <?= Html::a($model->company->name, ['site/index', 'JobSearch[company_id]' => $model->company_id]) ?>
+            <?php echo Html::a(Html::encode($model->company->name), ['company/view', 'id' => $model->company_id]) ?>
         </div>
         <div class="company-address">
-            <?= $model->company->address ?>
+            <?php echo Html::encode($model->company->address) ?>
         </div>
         <div class="job-last-updated">
-            <em>Последно обновена: <?= $model->getHumanLastUpdated() ?></em>
+            <em><?php echo Yii::t('frontend', 'Last updated')?>: <?= $model->getHumanLastUpdated() ?></em>
         </div>
     </div>
 </div>

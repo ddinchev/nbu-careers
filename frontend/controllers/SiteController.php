@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Company;
 use frontend\models\ContactForm;
 use frontend\models\JobSearch;
 use Yii;
@@ -39,10 +40,12 @@ class SiteController extends Controller
     {
         $searchModel = new JobSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $topCompanies = Company::getTopCompanies();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'topCompanies' => $topCompanies
         ]);
     }
 
