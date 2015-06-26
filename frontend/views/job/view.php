@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'description:ntext',
                 [
                     'attribute' => 'company_id',
-                    'label' => 'Компания',
+                    'label' => Yii::t('frontend', 'Company'),
                     'format' => 'html',
                     'value' => Html::a($model->company->getLogo() ? Html::img($model->company->getLogo()) : $model->company->name, [
                         'company/view', 'id' => $model->company_id
@@ -53,9 +53,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="apply-button-container">
-        <?=Html::a('Кандидатствай по тази обява', ['job/apply', 'id' => $model->id], [
-            'class' => 'btn btn-primary',
-            'id' => 'job-apply-button'
-        ])?>
+        <?php
+            echo Html::a(Yii::t('frontend', 'Apply for this position'), ['job/apply', 'id' => $model->id], [
+                'class' => 'btn btn-primary',
+                'id' => 'job-apply-button'
+            ])
+        ?>
     </div>
 </div>

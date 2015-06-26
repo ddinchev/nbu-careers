@@ -22,19 +22,19 @@ use yii\widgets\ActiveForm;
             <?php
             echo $form->field($model, 'job_category_id')->dropDownList(
                 ArrayHelper::map(JobCategory::getDropdownCategories(), 'id', 'name'),
-                ['prompt' => 'Изберете']
+                ['prompt' => Yii::t('frontend', 'Select')]
             );
             ?>
 
             <?php
             echo $form->field($model, 'employment_type')->dropDownList(Job::getEmploymentTypes(), [
-                'prompt' => 'Изберете'
+                'prompt' => Yii::t('frontend', 'Select')
             ]);
             ?>
 
             <?php
             echo $form->field($model, 'job_type')->dropDownList(Job::getJobTypes(), [
-                'prompt' => 'Изберете'
+                'prompt' => Yii::t('frontend', 'Select')
             ]);
             ?>
 

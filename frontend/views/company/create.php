@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Job */
 
-$this->title = "Добави обява за работа";
-$this->params['breadcrumbs'][] = ['label' => "Мои обяви", 'url' => ['index']];
+$this->title = Yii::t('frontend', 'Create a job offer');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'My offers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="job-create">

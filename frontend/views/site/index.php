@@ -7,7 +7,9 @@ use yii\widgets\ListView;
 /* @var $searchModel frontend\models\JobSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = sprintf('Търсете сред %d предложения подходящи за студенти', Job::find()->searchable()->count());
+$this->title = Yii::t('frontend', 'Search {job-offers-count} offers suitable for students.', [
+    'job-offers-count' => Job::find()->searchable()->count()
+]);
 ?>
 <div class="job-index">
 
@@ -29,7 +31,7 @@ $this->title = sprintf('Търсете сред %d предложения под
         <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Топ компании</h3>
+                    <h3 class="panel-title"><?php echo Yii::t('frontend', 'Топ компании') ?></h3>
                 </div>
                 <div class="panel-body">
                     <?php /* списък с компании по брой обяви */ ?>
