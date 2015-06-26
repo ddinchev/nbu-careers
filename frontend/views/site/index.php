@@ -31,7 +31,7 @@ $this->title = Yii::t('frontend', 'Search {job-offers-count} offers suitable for
         <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><?php echo Yii::t('frontend', 'Топ компании') ?></h3>
+                    <h3 class="panel-title"><?php echo Yii::t('frontend', 'Top Employers') ?></h3>
                 </div>
                 <div class="panel-body">
                     <?php /* списък с компании по брой обяви */ ?>
