@@ -60,8 +60,6 @@ class UserProfile extends ActiveRecord
             [['user_id', 'gender'], 'integer'],
             [['gender'], 'in', 'range' => [self::GENDER_FEMALE, self::GENDER_MALE]],
             [['firstname', 'middlename', 'lastname', 'avatar_path', 'avatar_base_url'], 'string', 'max' => 255],
-            ['locale', 'default', 'value' => Yii::$app->language],
-            ['locale', 'in', 'range' => array_keys(Yii::$app->params['availableLocales'])],
             ['picture', 'safe']
         ];
     }
@@ -76,16 +74,9 @@ class UserProfile extends ActiveRecord
             'firstname' => Yii::t('common', 'Firstname'),
             'middlename' => Yii::t('common', 'Middlename'),
             'lastname' => Yii::t('common', 'Lastname'),
-            'locale' => Yii::t('common', 'Locale'),
             'picture' => Yii::t('common', 'Picture'),
             'gender' => Yii::t('common', 'Gender'),
         ];
-    }
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        Yii::$app->session->setFlash('forceUpdateLocale');
     }
 
     /**

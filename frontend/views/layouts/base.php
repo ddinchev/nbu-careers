@@ -61,8 +61,9 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                     'visible' => !Yii::$app->user->isGuest,
                     'items' => [
                         [
-                            'label' => Yii::t('frontend', 'Account'),
-                            'url' => ['/user/default/index'],
+                            'label' => Yii::t('frontend', 'Profile'),
+                            'url' => ['/user/default/user-profile'],
+                            'visible' => Yii::$app->user->can('user'),
                         ],
                         [
                             'label' => Yii::t('frontend', 'Company profile'),
@@ -78,11 +79,6 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                             'label' => Yii::t('frontend', "Add job offer"),
                             'url' => ['/company/create'],
                             'visible' => Yii::$app->user->can('company'),
-                        ],
-                        [
-                            'label' => Yii::t('frontend', 'Profile'),
-                            'url' => ['/user/default/user-profile'],
-                            'visible' => Yii::$app->user->can('user'),
                         ],
                         [
                             'label' => Yii::t('frontend', 'Backend'),

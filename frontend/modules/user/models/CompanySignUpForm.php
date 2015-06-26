@@ -34,7 +34,10 @@ class CompanySignUpForm extends SignUpForm
                 'targetClass' => '\common\models\Company',
                 'message' => Yii::t('frontend', 'Company with this website already exists.')
             ],
-            ['contact_email', 'unique', 'message' => Yii::t('frontend', 'Contact person with this email already exists.')]
+            ['contact_email', 'unique',
+                'targetClass' => '\common\models\Company',
+                'message' => Yii::t('frontend', 'Contact person with this email already exists.')
+            ]
         ]);
     }
 
@@ -76,7 +79,9 @@ class CompanySignUpForm extends SignUpForm
                 $user->afterCompanySignUp([
                     'name' => $this->name,
                     'website' => $this->website,
-                    'address' => $this->address
+                    'address' => $this->address,
+                    'contact_name' => $this->contact_name,
+                    'contact_email' => $this->contact_email
                 ]);
                 $transaction->commit();
                 return $user;

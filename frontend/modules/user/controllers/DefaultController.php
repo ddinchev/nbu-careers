@@ -3,8 +3,6 @@
 namespace frontend\modules\user\controllers;
 
 use common\base\MultiModel;
-use common\models\Company;
-use common\models\UserProfile;
 use frontend\modules\user\models\AccountForm;
 use Intervention\Image\ImageManagerStatic;
 use trntv\filekit\actions\DeleteAction;
@@ -15,7 +13,6 @@ use yii\web\Controller;
 
 class DefaultController extends Controller
 {
-
     /**
      * @return array
      */
@@ -25,11 +22,6 @@ class DefaultController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['@']
-                    ],
                     [
                         'actions' => ['company-profile', 'logo-upload', 'logo-delete'],
                         'allow' => true,
@@ -85,7 +77,7 @@ class DefaultController extends Controller
     /**
      * @return string|\yii\web\Response
      */
-    public function actionIndex()
+    public function actionUserProfile()
     {
         $accountModel = new AccountForm();
         $accountModel->setUser(Yii::$app->user->identity);
@@ -100,25 +92,6 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('alert', [
                 'options' => ['class' => 'alert-success'],
-                'body' => Yii::t('frontend', 'Your account has been successfully saved')
-            ]);
-            return $this->refresh();
-        }
-        return $this->render('index', ['model' => $model]);
-    }
-
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionUserProfile()
-    {
-        /**
-         * @var $model UserProfile
-         */
-        $model = Yii::$app->user->identity->userProfile;
-        if ($model->load($_POST) && $model->save()) {
-            Yii::$app->session->setFlash('alert', [
-                'options' => ['class' => 'alert-success'],
                 'body' => Yii::t('frontend', 'Your profile has been successfully saved')
             ]);
             return $this->refresh();
@@ -131,11 +104,17 @@ class DefaultController extends Controller
      */
     public function actionCompanyProfile()
     {
-        /**
-         * @var $model Company
-         */
-        $model = Yii::$app->user->identity->company;
-        if ($model->load($_POST) && $model->save()) {
+        $accountModel = new AccountForm();
+        $accountModel->setUser(Yii::$app->user->identity);
+
+        $model = new MultiModel([
+            'models' => [
+                'account' => $accountModel,
+                'company' => Yii::$app->user->identity->company
+            ]
+        ]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('alert', [
                 'options' => ['class' => 'alert-success'],
                 'body' => Yii::t('frontend', 'Your profile has been successfully saved')

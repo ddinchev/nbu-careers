@@ -95,6 +95,12 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        Yii::$app->session->setFlash('forceUpdateLocale');
+    }
+
     /**
      * @inheritdoc
      */
@@ -102,6 +108,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'username' => Yii::t('common', 'Username'),
+            'locale' => Yii::t('common', 'Locale'),
             'email' => Yii::t('common', 'E-mail'),
             'status' => Yii::t('common', 'Status'),
             'created_at' => Yii::t('common', 'Created at'),
@@ -317,9 +324,8 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Creates user profile and application event
      * @param array $companyData
-     * @param array $profileData
      */
-    public function afterCompanySignUp(array $companyData = [], array $profileData = [])
+    public function afterCompanySignUp(array $companyData = [])
     {
         Yii::$app->commandBus->handle(new AddToTimelineCommand([
             'category' => 'company',
