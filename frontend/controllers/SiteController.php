@@ -1,10 +1,10 @@
 <?php
+
 namespace frontend\controllers;
 
+use frontend\models\ContactForm;
 use frontend\models\JobSearch;
 use Yii;
-use frontend\models\ContactForm;
-use yii\web\Controller;
 
 /**
  * Site controller

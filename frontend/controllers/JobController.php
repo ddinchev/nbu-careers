@@ -2,9 +2,8 @@
 
 namespace frontend\controllers;
 
-use Yii;
 use common\models\Job;
-use yii\web\Controller;
+use Yii;
 use yii\web\NotFoundHttpException;
 
 /**

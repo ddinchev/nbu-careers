@@ -2,12 +2,11 @@
 
 namespace frontend\controllers;
 
-use Yii;
 use common\models\Job;
+use Yii;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * CompanyJobController implements the CRUD actions for Job model.
